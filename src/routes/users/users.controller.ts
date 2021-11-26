@@ -22,6 +22,19 @@ export const create = async (ctx: IKoaContext) => {
   ctx.body = result;
 };
 
+export const loginUser = async (ctx: IKoaContext) => {
+  const body: IUserDTO = ctx.request.body;
+ 
+  await transformAndValidate(IUserDTO, body).catch(
+    (err: ServerValidationError) => {
+      throw new ServerValidationError(err.errorCode,err.message)
+    }
+  );
+
+  const result = await usersFactory().login(body);
+  ctx.body = result;
+};
+
 export const createMessages = async (ctx: IKoaContext) => {
   const body: IMessageDTO = ctx.request.body;
  
