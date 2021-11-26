@@ -38,6 +38,13 @@
     width:100%;
     margin: 0px 5px 0px 5px;
     text-align: center;
+
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 19px;
+    text-align: center;
+    color: #333;
 }
 
 </style>
@@ -55,7 +62,7 @@ import axios from "axios"
 })
 export default class Home extends Vue {
     form = {
-        fio: "Бунина Алёна Владимировна",
+        fio: "",
         email: "ich_liebe_dich_nicht@vk.com",
         password: "987456321"
     }
