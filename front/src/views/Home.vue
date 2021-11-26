@@ -2,7 +2,7 @@
 <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
     <h1>Все пользователи БД</h1>
-    <button @click="getList()">Показать всех пользователей</button><br><br>
+    <button @click="getList()" class="btn btn-light">Показать всех пользователей</button><br><br>
 
     <div class="container">
         <table class="table table-success table-striped">
@@ -19,7 +19,7 @@
                     <td>{{user.id}}</td>
                     <td>{{user.fio}}</td>
                     <td>{{user.email}}</td>
-                    <td><button class="btn btn-outline-success" @click="deleteUser()">Удалить</button></td>
+                    <td><button class="btn btn-light" @click="deleteUser()">Удалить</button></td>
                 </tr>
             </tbody>
         </table>
