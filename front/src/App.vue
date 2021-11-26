@@ -46,11 +46,12 @@ li a:hover {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-size: 19px;
     text-align: center;
     color: #ffffff;
 
     height: 100vh;
-    background-image: url("C:/Users/Zombie/Documents/Курсовая 26112021/bunina_2611/front/images/back.jpg");
+    background-image: url("C:/Users/Zombie/Documents/Курсовая 26112021/bunina_2611/front/images/fon.jpg");
     background-size: 100%;
     background-color: rgb(0, 0, 0);
 }
