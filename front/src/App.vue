@@ -51,7 +51,7 @@ li a:hover {
     color: #ffffff;
 
     height: 100vh;
-    background-image: url("C:/Users/Zombie/Documents/Курсовая 26112021/bunina_2611/front/images/fon.jpg");
+    background-image: url("C:/Users/Zombie/Documents/Курсовая 26112021/bunina_2611/front/images/fon1.jpg");
     background-size: 100%;
     background-color: rgb(0, 0, 0);
 }
