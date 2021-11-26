@@ -1,22 +1,17 @@
 <template>
     <div class="login">
-        <h1>Добавление нового пользователя</h1>
+        <h1>Авторизация</h1>
         ФИО: <input v-model="form.fio"><br>
         Email: <input v-model="form.email"><br>
         Пароль: <input v-model="form.password"><br><br>
-        <button @click="login()">Авторизоваться</button><br><br>
+        <button @click="login()">Вход</button><br><br>
+        <button @click="login()">Регистрация</button><br><br>
         {{response}}
     </div>
 </template>
 
 <style lang="scss">
-// #back_img {
-//     height: 100%;
-//     box-sizing: border-box;
-//     margin: 0;
-//     background-image: url("C:/Users/Zombie/Documents/Курсовая 26112021/bunina_2611/front/images/back.jpg");
-//     background-size: 100%;
-// }
+
 </style>
 
 <script lang="ts">

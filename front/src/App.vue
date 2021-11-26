@@ -5,19 +5,18 @@
             <li><a href="/">Главная</a></li>
             <li><a href="/about">Регистрация</a></li>
             <li><a href="/add">Сообщения</a></li>
-            <li style="float:right"><a href="/login" >Авторизация</a></li>
+            <li style="float:right"><a href="/login">Авторизация</a></li>
         </ul>
-
     </div>
-    <router-view />
+<div  id="page">
+    <router-view/>
+</div>
 </div>
 </template>
 
 <style lang="scss">
 ul {
     list-style-type: none;
-    margin: 0;
-    padding: 0;
     overflow: hidden;
     background-color: #333;
 }
@@ -38,6 +37,7 @@ li a {
     padding: 14px 16px;
     text-decoration: none;
 }
+
 li a:hover {
     background-color: #111;
 }
@@ -47,17 +47,25 @@ li a:hover {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
+    color: #ffffff;
 
-     height: 100%;
-    box-sizing: border-box;
-    margin: 0;
+    height: 100vh;
     background-image: url("C:/Users/Zombie/Documents/Курсовая 26112021/bunina_2611/front/images/back.jpg");
     background-size: 100%;
+    background-color: rgb(0, 0, 0);
 }
 
 #nav {
-    padding: 30px;
+    padding: 30px 30px 0 30px;
     background-repeat: repeat-x;
+    opacity: 0.9;
+}
+
+#page {
+    opacity: 0.9;
+    overflow: hidden;
+    background-color: #333;
+    padding: 30px;
+    margin: 30px;
 }
 </style>
