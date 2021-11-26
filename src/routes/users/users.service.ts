@@ -61,10 +61,10 @@ export class UsersService {
   async login(user: IUserDTO) {
     const founded = await User.findOne({where: {email: user.email, password: user.password}})
     if(founded){
-      return{success:false, message: 'Успешная авторизация'}
+      return{success:true, message: 'Успешная авторизация'}
     }
     return{
-      success: true,
+      success: false,
       message: "Ошибка авторизации.",
     }      
   } 
