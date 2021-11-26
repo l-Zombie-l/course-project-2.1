@@ -11,11 +11,10 @@
         </div><br>
     </form>
 
-    <form class="form-horizontal">
-    <!-- <div class="buttons"> -->
+    <form class="form-horizontal" @submit.prevent="">
         <div class="buttons">
-        <button class="button btn btn-light" @click="login()">Вход</button>
-        <button class="button btn btn-light" @click="login()">Регистрация</button>
+        <button type="button" class="button btn btn-light" @click="login()">Вход</button>
+        <button type="button" class="button btn btn-light" @click="redistr()">Регистрация</button>
         </div>
     </form><br>
     {{response}}
@@ -56,7 +55,7 @@ import axios from "axios"
 })
 export default class Home extends Vue {
     form = {
-        // fio: "Бунина Алёна Владимировна",
+        fio: "Бунина Алёна Владимировна",
         email: "ich_liebe_dich_nicht@vk.com",
         password: "987456321"
     }
@@ -64,6 +63,10 @@ export default class Home extends Vue {
     response = "Ожидание действий пользователя.";
 
     async login() {
+        const result = await axios.post('http://localhost:4100/login', this.form);
+        this.response = JSON.stringify(result.data);
+    }
+    async redistr() {
         const result = await axios.post('http://localhost:4100/login', this.form);
         this.response = JSON.stringify(result.data);
     }
