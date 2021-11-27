@@ -1,9 +1,10 @@
 import User from "@/db/models/User.model";
 import Message from "@/db/models/Message.model";
 import Hobby from "@/db/models/Hobby.model";
-import { IMessageDTO, IUserDTO } from "./dto";
+import { IMessageDTO, INewDTO, IUserDTO } from "./dto";
 import moment from "moment";
 import {Op} from "sequelize";
+import New from "@/db/models/New.model";
 // import { DELETE } from "sequelize/types/lib/query-types";
 
 export class UsersService {
@@ -13,6 +14,7 @@ export class UsersService {
       include: [
         { model: Message },
         { model: Hobby },
+        { model: New },        
       ]
     });
 
@@ -110,8 +112,45 @@ export class UsersService {
         message: 'Email отсутствует в базе.'}        
   } 
 
-  async deleteUser(user: IUserDTO) {        
-   
+  async addNews(news: INewDTO) {
+    const founded = await User.findOne({where: {email: news.email}})
+      if(founded){
+        const NEW_LIMIT = 3;
+        const NEW_DELAY = 30;
+        const where: any = {};
+    
+        where.userId = founded.id;
+        where.createdAt={
+          [Op.gte]: moment()
+          .subtract(NEW_DELAY, "seconds")
+          .format("YYYY-MM-DD HH:mm:ss"),
+        };
+  
+        const newCount = await New.count({where});
+    
+        if (newCount >= NEW_LIMIT){
+          return{
+            success: false,
+            message: `За ${NEW_DELAY} секунд отправлено ${newCount} сообщений. Лимит (${NEW_LIMIT}!)`,
+          };
+        }
+  
+        const result = new New();    
+        result.userId = founded.id
+        result.name = news.name
+        result.info = news.info
+    
+        await result.save();
+    
+        return{
+          success: true,
+          message: "Успешно добавлено.",
+          data: result
+        }  
+    }   
+  return{
+        success:false, 
+        message: 'Email отсутствует в базе.'}        
   } 
 }
 

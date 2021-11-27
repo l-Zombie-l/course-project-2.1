@@ -4,7 +4,7 @@
         <ul>
             <li><a href="/">Главная</a></li>
             <li><a href="/about">Регистрация</a></li>
-            <li><a href="/add">Сообщения</a></li>
+            <li><a href="/add">Новости</a></li>
             <li style="float:right"><a href="/login">Авторизация</a></li>
         </ul>
     </div>
@@ -15,10 +15,17 @@
 </template>
 
 <style lang="scss">
+body{    
+    background-image: url("C:/Users/Zombie/Documents/Курсовая 26112021/bunina_2611/front/images/fon1.jpg");
+    background-size: 100%;
+    background-attachment: fixed; 
+    background-color: rgb(0, 0, 0);
+}
+
 ul {
     list-style-type: none;
     overflow: hidden;
-    background-color: #333;
+    background-color: rgba(50, 50, 50, 0.9);
 }
 
 li {
@@ -48,12 +55,7 @@ li a:hover {
     -moz-osx-font-smoothing: grayscale;
     font-size: 19px;
     text-align: center;
-    color: #ffffff;
-
-    height: 100vh;
-    background-image: url("C:/Users/Zombie/Documents/Курсовая 26112021/bunina_2611/front/images/fon1.jpg");
-    background-size: 100%;
-    background-color: rgb(0, 0, 0);
+    color: #ffffff;    
 }
 
 #nav {
@@ -63,10 +65,10 @@ li a:hover {
 }
 
 #page {
-    opacity: 0.9;
     overflow: hidden;
-    background-color: #333;
+    background-color: rgba(50, 50, 50, 0.9);
+    // backdrop-filter: blur(5px);
     padding: 30px;
-    margin: 30px;
+    margin: 30px; 
 }
 </style>

@@ -1,20 +1,21 @@
 <template>
-<div class="login">
-    <h1>Авторизация</h1>
+<div class="add">
+    <h1>Добавить новость</h1>
     <form class="form-horizontal">
         <div class="form-group">
             <label for="inputEmail" class="col-xs-2 control-label text-start">Адрес email: </label>
             <input type="email" class="form-control col-xs-10" id="inputEmail" placeholder="Введите email" v-model="form.email"><br>
 
-            <label for="inputPassword" class="col-xs-2 control-label">Пароль: </label>
-            <input type="password" class="form-control col-xs-10" id="inputPassword" placeholder="Введите пароль" v-model="form.password">
+            <label for="inputName" class="col-xs-2 control-label">Название: </label>
+            <input type="text" class="form-control col-xs-10" id="inputName" placeholder="Введите название статьи" v-model="form.name"> <br>
+
+            <label for="inputNew" class="col-xs-2 control-label">Содержимое: </label>
+            <textarea type="text" class="form-control col-xs-10 news" id="inputNew" placeholder="Введите содержимое статьи" v-model="form.info"></textarea>
         </div><br>
     </form>
-
     <form class="form-horizontal" @submit.prevent="">
         <div class="buttons">
-            <button type="button" class="button btn btn-light" @click="login()">Вход</button>
-            <button type="button" class="button btn btn-light" @click="redistr()">Регистрация</button>
+            <button type="button" class="button btn btn-light" @click="addNew()">Добавить статью</button>
         </div>
     </form><br>
     {{response}}
@@ -22,7 +23,6 @@
 </template>
 
 <style lang="scss">
-
 .form-group {
     text-align: left;
     padding: 0px 300px 0px 300px;
@@ -47,6 +47,9 @@
     text-align: center;
     color: #333;
 }
+.news{
+    height: 150px;
+}
 </style>
 
 <script lang="ts">
@@ -62,20 +65,16 @@ import axios from "axios"
 })
 export default class Home extends Vue {
     form = {
-        fio: "",
         email: "ich_liebe_dich_nicht@vk.com",
-        password: "987456321"
+        name: "Волк",
+        info: "Ауф"
     }
 
     response = "Ожидание действий пользователя.";
 
-    async login() {
-        const result = await axios.post('http://localhost:4100/login', this.form);
-        this.response = JSON.stringify(result.data);
-    }
-    async redistr() {
-        const result = await axios.post('http://localhost:4100/login', this.form);
-        this.response = JSON.stringify(result.data);
+    async addNew() {
+        const result = await axios.post('http://localhost:4100/new', this.form)
+        this.response = result.data
     }
 }
 </script>

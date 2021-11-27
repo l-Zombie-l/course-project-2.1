@@ -11,6 +11,7 @@ import {
 } from "sequelize-typescript";
 import Hobby from "./Hobby.model";
 import Message from "./Message.model";
+import New from "./New.model";
 
 @Table({
   paranoid: true,
@@ -35,6 +36,9 @@ class User extends Model {
 
   @HasMany(() => Hobby, { foreignKey: "userId", onDelete: "RESTRICT" })
   hobby: Hobby[];
+
+  @HasMany(() => New, { foreignKey: "userId", onDelete: "RESTRICT" })
+  news: New[];
 }
 
 export default User;
