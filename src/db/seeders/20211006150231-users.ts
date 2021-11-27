@@ -1,7 +1,7 @@
 import config from "@/config";
 import User from "@/db/models/User.model";
 
-const password = "123456"
+const password = "$2b$10$IhaZR3eFgxF/esTIR8DLVe.wDX9GtsU7wsTVzWa9GHCF5AKitRxk2"
 
 const seedUsers = {
   development: [

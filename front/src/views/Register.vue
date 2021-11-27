@@ -1,5 +1,5 @@
 <template>
-<div class="about">
+<div class="register">
     <h1>Добавление нового пользователя</h1>
     ФИО: <input v-model="form.fio"><br>
     Email: <input v-model="form.email"><br>
@@ -30,7 +30,7 @@ export default class Home extends Vue {
     response = "Ожидание действий пользователя.";
 
     async register(){
-        const result = await axios.post('http://localhost:4100/users', this.form);
+        const result = await axios.post('http://localhost:4100/register', this.form);
     //    const result1 = await axios.post(`${process.env.VUE_APP_SERVER_HOST}/users`, this.form);
        this.response = JSON.stringify(result.data);
     }  

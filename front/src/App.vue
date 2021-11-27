@@ -3,7 +3,7 @@
     <div id="nav">
         <ul>
             <li><a href="/">Главная</a></li>
-            <li><a href="/about">Регистрация</a></li>
+            <li><a href="/register">Регистрация</a></li>
             <li><a href="/add">Новости</a></li>
             <li style="float:right"><a href="/login">Авторизация</a></li>
         </ul>

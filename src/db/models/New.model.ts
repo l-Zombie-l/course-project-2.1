@@ -11,7 +11,6 @@ import {
 import User from "./User.model";
 
 @Table({
-  paranoid: true,
   timestamps: true,
 })
 class New extends Model {

@@ -14,7 +14,6 @@ import Message from "./Message.model";
 import New from "./New.model";
 
 @Table({
-  paranoid: true,
   timestamps: true,
 })
 class User extends Model {

@@ -1,11 +1,14 @@
 import User from "@/db/models/User.model";
 import Message from "@/db/models/Message.model";
 import Hobby from "@/db/models/Hobby.model";
-import { IMessageDTO, INewDTO, IUserDTO } from "./dto";
+import { IMessageDTO, INewDTO, IUserCreateDTO, IUserLoginDTO } from "./dto";
 import moment from "moment";
 import {Op} from "sequelize";
 import New from "@/db/models/New.model";
-// import { DELETE } from "sequelize/types/lib/query-types";
+import {genSaltSync, hashSync} from "bcrypt";
+import Token from "@/db/models/Token.model";
+import {compareSync} from "bcrypt";
+import { sign } from "jsonwebtoken";
 
 export class UsersService {
 
@@ -21,7 +24,7 @@ export class UsersService {
     return { data: foundUsers };
   }
 
-  async register(user: IUserDTO) {
+  async register(user: IUserCreateDTO) {
     const founded = await User.findOne({where: {email: user.email}})
     if(founded){
       return{success:false, message: 'Email уже зарегистрирован.'}
@@ -49,7 +52,9 @@ export class UsersService {
 
     result.email = user.email
     result.fio = user.fio
-    result.password = user.password
+
+    const salt = genSaltSync(10);
+    result.password = hashSync(user.password, salt)
 
     await result.save();
 
@@ -60,14 +65,46 @@ export class UsersService {
     }      
   } 
 
-  async login(user: IUserDTO) {
-    const founded = await User.findOne({where: {email: user.email, password: user.password}})
-    if(founded){
-      return{success:true, message: 'Успешная авторизация'}
+  generateJWT(owner: User): string{
+    if(!owner){
+      throw new Error()
+    }
+    const accessToken = sign(owner.toJSON(), process.env.TOKEN_SECRET||"mySecretForGenerationJWT", {
+      algorithm: "HS256",
+    });
+
+    return accessToken
+  }
+
+  async login(body: IUserLoginDTO) {
+    const foundUser = await User.findOne({where: {email: body.email}})
+    if(foundUser){
+      await Token.destroy({where: {userId: foundUser.id}});
+
+      const correctPass = compareSync(body.password, foundUser.password);
+      if(!correctPass){
+        return {success: false,
+          message: "Неверный пароль.",}
+      }
+
+      delete foundUser.password;
+      const token = this.generateJWT(foundUser);
+
+      await Token.create({
+        token,
+        userId: foundUser.id,
+      })
+      
+      return{
+        success:true, 
+        message: 'Успешная авторизация.',
+        user: foundUser,
+        token
+      }
     }
     return{
       success: false,
-      message: "Ошибка авторизации.",
+      message: "Ошибка авторизации.",      
     }      
   } 
 

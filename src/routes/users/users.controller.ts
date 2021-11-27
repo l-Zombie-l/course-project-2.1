@@ -2,17 +2,17 @@ import { IKoaContext } from "@/interfaces";
 import { usersFactory } from "@/routes/users/users.service";
 import { ServerValidationError } from "@/utils/errors";
 import { transformAndValidate } from "class-transformer-validator";
-import { IMessageDTO, INewDTO, IUserDTO } from "./dto";
+import { IMessageDTO, INewDTO, IUserCreateDTO, IUserLoginDTO} from "./dto";
 
 export const list = async (ctx: IKoaContext) => {
   const usersList = await usersFactory().getList();
   ctx.body = { ...usersList };
 };
 
-export const create = async (ctx: IKoaContext) => {
-  const body: IUserDTO = ctx.request.body;
+export const register = async (ctx: IKoaContext) => {
+  const body: IUserCreateDTO = ctx.request.body;
  
-  await transformAndValidate(IUserDTO, body).catch(
+  await transformAndValidate(IUserCreateDTO, body).catch(
     (err: ServerValidationError) => {
       throw new ServerValidationError(err.errorCode,err.message)
     }
@@ -21,10 +21,10 @@ export const create = async (ctx: IKoaContext) => {
   ctx.body = result;
 };
 
-export const loginUser = async (ctx: IKoaContext) => {
-  const body: IUserDTO = ctx.request.body;
+export const login = async (ctx: IKoaContext) => {
+  const body: IUserLoginDTO = ctx.request.body;
  
-  await transformAndValidate(IUserDTO, body).catch(
+  await transformAndValidate(IUserLoginDTO, body).catch(
     (err: ServerValidationError) => {
       throw new ServerValidationError(err.errorCode,err.message)
     }
