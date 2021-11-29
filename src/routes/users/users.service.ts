@@ -99,7 +99,7 @@ export class UsersService {
 
       return {
         success: true,
-        message: 'Успешная авторизация.',
+        message: "Успешная авторизация.",
         user: foundUser,
         token
       }
@@ -129,7 +129,7 @@ export class UsersService {
     if (foundUser.isAdmin) {
       return {
         success: false,
-        message: "Удаление администратора апрещено",
+        message: "Удаление администратора запрещено.",
       };
     }
     await Hobby.destroy({ where: { userId } });
@@ -138,7 +138,7 @@ export class UsersService {
 
     return {
       success: true,
-      message: "Пользователь удален",
+      message: "Пользователь удален.",
     };
   }
 

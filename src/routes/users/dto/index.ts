@@ -46,7 +46,7 @@ export class INewDTO{
     userId: number;
 }
 
-export class ICreateUserDTO extends IUserCreateDTO {}
-export class ICreateUserLoginDTO extends IUserLoginDTO {}
-export class ICreateMessageDTO extends IMessageDTO {}
-export class ICreateNewsDTO extends INewDTO {}
+// export class ICreateUserDTO extends IUserCreateDTO {}
+// export class ICreateUserLoginDTO extends IUserLoginDTO {}
+// export class ICreateMessageDTO extends IMessageDTO {}
+// export class ICreateNewsDTO extends INewDTO {}

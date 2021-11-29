@@ -1,7 +1,8 @@
 import { Context, DefaultState } from "koa";
 import Router from "koa-router";
 import userRoutes from "@/routes/users/index";
-import { login, register } from "./users/users.controller";
+import { list, login, register } from "./users/users.controller";
+import checkAuth from "@/middlewares/checkAuth";
 
 const router = new Router<DefaultState, Context>();
 
@@ -24,8 +25,6 @@ router.post("/register", register.bind(this));
 router.post("/login", login.bind(this));
 // router.post("/new", checkAuth, createNews);
 // router.get("/users", checkAuth, list);
-
-
 
 router.use(userRoutes.routes());
 

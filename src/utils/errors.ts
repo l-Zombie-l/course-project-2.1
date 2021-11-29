@@ -34,12 +34,24 @@ export class ServerValidationError extends ApiError {
   }
 }
 
-export class AuthenticatioError extends ApiError {
+export class AuthenticationError extends ApiError {
   constructor(errorCode?: string, message?: string) {
     super(...arguments);
 
-    this.name = "AuthenticatioError";
+    this.name = "AuthenticationError";
     this.message = message || "Невозможно провести аунтентификацию.";
+    this.errorCode = errorCode;
+    this.status = 401;
+    this.stack = errorCode;
+  }
+}
+
+export class NotFoundErrorToken extends ApiError {
+  constructor(errorCode?: string, message?: string) {
+    super(...arguments);
+
+    this.name = "NotFoundErrorToken";
+    this.message = message || "Объект не найден (token).";
     this.errorCode = errorCode;
     this.status = 401;
     this.stack = errorCode;
@@ -50,10 +62,10 @@ export class NotFoundError extends ApiError {
   constructor(errorCode?: string, message?: string) {
     super(...arguments);
 
-    this.name = "NotFoundError";
-    this.message = message || "Объект не найден.";
+    this.name = "NotFoundErrorUser";
+    this.message = message || "Объект не найден (user).";
     this.errorCode = errorCode;
-    this.status = 400;
+    this.status = 401;
     this.stack = errorCode;
   }
 }

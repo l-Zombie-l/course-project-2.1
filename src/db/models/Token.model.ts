@@ -6,9 +6,6 @@ import {
   AllowNull,
   BelongsTo,
 } from "sequelize-typescript";
-import Hobby from "./Hobby.model";
-import Message from "./Message.model";
-import New from "./New.model";
 import User from "./User.model";
 
 @Table({
@@ -23,8 +20,7 @@ class Token extends Model {
   token: string;
 
   @BelongsTo(() => User, 'userId')
-  user: User[];
-
+  user: User;
 }
 
 export default Token;
