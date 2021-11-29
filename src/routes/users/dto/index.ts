@@ -1,7 +1,7 @@
-import { IsDefined, IsEmail, Length } from "class-validator";
+import { IsDefined, IsEmail, IsNotEmpty, Length } from "class-validator";
 
-export class IUserCreateDTO{
-    @Length(6,100,{})
+export class IUserCreateDTO {
+    @Length(6, 100, {})
     fio: string;
 
     @IsEmail()
@@ -9,19 +9,19 @@ export class IUserCreateDTO{
     email: string;
 
     @IsDefined()
-    @Length(6,20,{})
+    @Length(6, 20, {})
     password: string;
 }
 
-export class IUserLoginDTO{
+export class IUserLoginDTO {
     @IsEmail()
     email: string;
 
-    @Length(6,20,{})
+    @IsNotEmpty()
     password: string;
 }
 
-export class IMessageDTO{
+export class IMessageDTO {
     @IsEmail()
     email: string;
 
@@ -31,11 +31,11 @@ export class IMessageDTO{
     userId: number;
 }
 
-export class INewDTO{
+export class INewDTO {
     @IsEmail()
     @IsDefined()
     email: string;
-    
+
     @IsDefined()
     name: string;
 
@@ -46,6 +46,14 @@ export class INewDTO{
     userId: number;
 }
 
+export class IUserUpdateDTO {
+    @Length(6, 100, {})
+    fio: string;
+
+    @IsDefined()
+    @Length(6, 20, {})
+    password: string;
+}
 // export class ICreateUserDTO extends IUserCreateDTO {}
 // export class ICreateUserLoginDTO extends IUserLoginDTO {}
 // export class ICreateMessageDTO extends IMessageDTO {}

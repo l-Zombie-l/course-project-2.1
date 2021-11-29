@@ -1,7 +1,7 @@
 import User from "@/db/models/User.model";
 import Message from "@/db/models/Message.model";
 import Hobby from "@/db/models/Hobby.model";
-import { IMessageDTO, INewDTO, IUserCreateDTO, IUserLoginDTO } from "./dto";
+import { IMessageDTO, INewDTO, IUserCreateDTO, IUserLoginDTO, IUserUpdateDTO } from "./dto";
 import moment from "moment";
 import { Op } from "sequelize";
 import New from "@/db/models/New.model";
@@ -109,39 +109,7 @@ export class UsersService {
       message: "Ошибка авторизации.",
     }
   }
-
-  async destroy(self: User, userId: number) {
-    if (!self.isAdmin) {
-      return {
-        success: false,
-        message: "Недостаточно полномочий.",
-      };
-    }
-
-    const foundUser = await User.findByPk(userId);
-    if (!foundUser) {
-      return {
-        success: false,
-        message: "Пользователь не найден.",
-      };
-    }
-
-    if (foundUser.isAdmin) {
-      return {
-        success: false,
-        message: "Удаление администратора запрещено.",
-      };
-    }
-    await Hobby.destroy({ where: { userId } });
-    await Message.destroy({ where: { userId } });
-    await User.destroy({ where: { id: userId } });
-
-    return {
-      success: true,
-      message: "Пользователь удален.",
-    };
-  }
-
+  
   async addMessage(message: IMessageDTO) {
     const foundUsers = await User.findOne({ where: { email: message.email } })
     if (foundUsers) {
@@ -225,6 +193,58 @@ export class UsersService {
       success: false,
       message: 'Email отсутствует в базе.'
     };
+  }
+  
+  async destroy(self: User, userId: number) {
+    if (!self.isAdmin) {
+      return {
+        success: false,
+        message: "Недостаточно полномочий.",
+      };
+    }
+
+    const foundUser = await User.findByPk(userId);
+    if (!foundUser) {
+      return {
+        success: false,
+        message: "Пользователь не найден.",
+      };
+    }
+
+    if (foundUser.isAdmin) {
+      return {
+        success: false,
+        message: "Удаление администратора запрещено.",
+      };
+    }
+    await Hobby.destroy({ where: { userId } });
+    await Message.destroy({ where: { userId } });
+    await User.destroy({ where: { id: userId } });
+
+    return {
+      success: true,
+      message: "Пользователь удален.",
+    };
+  }
+
+  async update(id: number, body: IUserUpdateDTO){
+    const foundUser = await User.findByPk(id);
+
+    if (body.password){
+      foundUser.password = hashSync(body.password, genSaltSync(10))
+    }
+
+    if(body.fio){
+      foundUser.fio = body.fio
+    }
+
+    await foundUser.save()
+
+    return{
+      success: true,
+      message: "Успешное редактирование профиля.",
+      user: foundUser
+    }
   }
 }
 
