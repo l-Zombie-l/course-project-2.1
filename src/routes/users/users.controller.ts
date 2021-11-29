@@ -9,6 +9,12 @@ export const list = async (ctx: IKoaContext) => {
   ctx.body = { ...usersList };
 };
 
+export const destroy = async (ctx: IKoaContext) => {
+  
+  const result = await usersFactory().destroy(ctx.user, ctx.param.id);
+  ctx.body = result;
+};
+
 export const register = async (ctx: IKoaContext) => {
   const body: IUserCreateDTO = ctx.request.body;
  

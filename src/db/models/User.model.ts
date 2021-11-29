@@ -30,6 +30,9 @@ class User extends Model {
   @Column(DataType.STRING)
   password: string;
 
+  @Column(DataType.BOOLEAN)
+  isAdmin: boolean;
+
   @HasMany(() => Message, { foreignKey: "userId", onDelete: "RESTRICT" })
   message: Message[];
 

@@ -22,7 +22,6 @@
 </template>
 
 <style lang="scss">
-
 .form-group {
     text-align: left;
     padding: 0px 300px 0px 300px;
@@ -71,7 +70,7 @@ export default class Home extends Vue {
 
     async login() {
         const result = await axios.post('http://localhost:4100/login', this.form);
-        this.response = JSON.stringify(result.data);
+        this.response = JSON.stringify(result.data);        
     }
     async redistr() {
         const result = await axios.post('http://localhost:4100/login', this.form);

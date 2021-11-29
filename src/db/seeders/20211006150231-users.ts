@@ -9,6 +9,7 @@ const seedUsers = {
       fio: "Первый",
       email: "1@mail.ru",
       password,
+      isAdmin: true,
       createdAt: new Date(),
       updatedAt: new Date(),
     },

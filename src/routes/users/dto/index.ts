@@ -37,11 +37,10 @@ export class INewDTO{
     email: string;
     
     @IsDefined()
-    @Length(6,20,{})
     name: string;
 
     @IsDefined()
-    @Length(6,20,{})
+    // @Length(6,20,{})
     info: string;
 
     userId: number;

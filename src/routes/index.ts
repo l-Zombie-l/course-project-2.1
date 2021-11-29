@@ -22,6 +22,8 @@ router.get("/", (ctx: any) => {
 
 router.post("/register", register.bind(this));
 router.post("/login", login.bind(this));
+// router.post("/new", checkAuth, createNews);
+// router.get("/users", checkAuth, list);
 
 
 
