@@ -14,7 +14,7 @@
     <form class="form-horizontal" @submit.prevent="">
         <div class="buttons">
             <button type="button" class="button btn btn-light" @click="login()">Вход</button>
-            <button type="button" class="button btn btn-light" @click="redistr()">Регистрация</button>
+             <a href="/register" class="button btn btn-light"><button type="button" class="register">Регистрация</button></a>
         </div>
     </form><br>
     {{response}}
@@ -46,6 +46,11 @@
     text-align: center;
     color: #333;
 }
+
+.register{
+border: 0ch;
+background-color: rgba(0, 0, 0, 0);
+}
 </style>
 
 <script lang="ts">
@@ -72,7 +77,7 @@ export default class Home extends Vue {
         const result = await axios.post('http://localhost:4100/login', this.form);
         this.response = JSON.stringify(result.data);        
     }
-    async redistr() {
+    async register() {
         const result = await axios.post('http://localhost:4100/login', this.form);
         this.response = JSON.stringify(result.data);
     }
