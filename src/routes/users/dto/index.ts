@@ -31,7 +31,7 @@ export class IMessageDTO {
     userId: number;
 }
 
-export class INewDTO {
+export class INewsDTO {
     @IsEmail()
     @IsDefined()
     email: string;
@@ -46,6 +46,17 @@ export class INewDTO {
     userId: number;
 }
 
+export class IGetNewsDTO {
+
+    @IsDefined()
+    name: string;
+
+    @IsDefined()
+    info: string;
+
+    userId: number;
+}
+
 export class IUserUpdateDTO {
     @Length(6, 100, {})
     fio: string;
@@ -54,7 +65,6 @@ export class IUserUpdateDTO {
     @Length(6, 20, {})
     password: string;
 }
-// export class ICreateUserDTO extends IUserCreateDTO {}
-// export class ICreateUserLoginDTO extends IUserLoginDTO {}
-// export class ICreateMessageDTO extends IMessageDTO {}
-// export class ICreateNewsDTO extends INewDTO {}
+
+export class ICreateIGetNewsDTO extends IGetNewsDTO {}
+

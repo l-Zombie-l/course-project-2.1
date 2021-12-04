@@ -2,10 +2,11 @@
 <div id="app">
     <div id="nav">
         <ul>
-            <li><a href="/">Главная</a></li>
-            <li><a href="/register">Регистрация</a></li>
-            <li><a href="/add">Новости</a></li>
-            <li style="float:right"><a href="/login">Авторизация</a></li>
+            <li><a href="/" class="text">Главная</a></li>
+            <li><a href="/register" class="text">Регистрация</a></li>
+            <li><a href="/news" class="text">Новости</a></li>
+            <li style="float:right" ><a href="/profile" class="text">Профиль</a></li>
+            <li style="float:right" ><a href="/login" class="text">Авторизация</a></li>
         </ul>
     </div>
 <div  id="page">
@@ -20,6 +21,10 @@ body{
     background-size: 100%;
     background-attachment: fixed; 
     background-color: rgb(0, 0, 0);
+}
+a.text:hover{
+     text-decoration: none;
+  color: rgb(177, 3, 3);
 }
 
 ul {

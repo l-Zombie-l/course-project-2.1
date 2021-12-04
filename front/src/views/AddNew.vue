@@ -73,7 +73,7 @@ export default class Home extends Vue {
     response = "Ожидание действий пользователя.";
 
     async addNew() {
-        const result = await axios.post('http://localhost:4100/new', this.form)
+        const result = await axios.post('http://localhost:4100/add_news', this.form)
         this.response = result.data
     }
 }

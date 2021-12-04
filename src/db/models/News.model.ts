@@ -13,7 +13,7 @@ import User from "./User.model";
 @Table({
   timestamps: true,
 })
-class New extends Model {
+class News extends Model {
   @Column(DataType.STRING)
   name: string;
 
@@ -29,4 +29,4 @@ class New extends Model {
   user: User;
 }
 
-export default New;
+export default News;

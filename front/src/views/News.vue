@@ -1,25 +1,25 @@
 <template>
-<div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <h1>Все пользователи БД</h1>
-    <button @click="getList()" class="btn btn-light">Показать всех пользователей</button><br><br>
+<div class="news">
+    <!-- <img alt="Vue logo" src="../assets/logo.png" /> -->
+    <h1>Новости</h1>
+    <button @click="getList()" class="btn btn-light">Все новости</button><br><br>
 
     <div class="container">
         <table class="table table-success table-striped">
             <thead>
                 <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">ФИО</th>
-                    <th scope="col">Email</th>
+                    <th scope="col">Название</th>
+                    <th scope="col">Содержимое</th>
                     <th scope="col">Действие</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="user in users" :key="user.id">
-                    <td>{{user.id}}</td>
-                    <td>{{user.fio}}</td>
-                    <td>{{user.email}}</td>
-                    <td><button class="btn btn-light" @click="deleteUser()">Удалить</button></td>
+                <tr v-for="news in news" :key="news.id">
+                    <td>{{news.id}}</td>
+                    <td>{{news.name}}</td>
+                    <td>{{news.info}}</td>
+                    <td><button class="btn btn-light" @click="deleteUser()">Редактирование</button></td>
                 </tr>
             </tbody>
         </table>
@@ -28,6 +28,21 @@
 </template>
 
 <script lang="ts">
+
+
+// new Vue({
+//     methods:{
+//         getNews: async function() {
+//  const result = await axios.get('http://localhost:4100/news')
+//         this.news = result.data.data;
+//         console.log(this.news)
+//         }
+//     },
+//     created: function(){
+//         this.getNews()
+//     }
+// });
+
 import {
     Component,
     Vue
@@ -41,20 +56,22 @@ import 'bootstrap/dist/css/bootstrap.min.css'
     components: {},
 })
 export default class Home extends Vue {
-    users: any[] = [];
+    news: any[] = [];
 
     response = "";
 
     async getList() {
-        const result = await axios.get('http://localhost:4100/users')
-        this.users = result.data.data;
-        console.log(this.users)
+        const result = await axios.get('http://localhost:4100/news')
+        this.news = result.data.data;
+        console.log(this.news)
     }
 
     async deleteUser() {
         const result = await axios.delete('http://localhost:4100/users')
-        this.users = result.data.data;
-        console.log(this.users)
+        this.news = result.data.data;
+        console.log(this.news)
     }
 }
+
+
 </script>

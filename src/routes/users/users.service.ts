@@ -1,10 +1,10 @@
 import User from "@/db/models/User.model";
 import Message from "@/db/models/Message.model";
 import Hobby from "@/db/models/Hobby.model";
-import { IMessageDTO, INewDTO, IUserCreateDTO, IUserLoginDTO, IUserUpdateDTO } from "./dto";
+import News from "@/db/models/News.model";
+import { IMessageDTO, INewsDTO, IUserCreateDTO, IUserLoginDTO, IUserUpdateDTO } from "./dto";
 import moment from "moment";
 import { Op } from "sequelize";
-import New from "@/db/models/New.model";
 import { genSaltSync, hashSync } from "bcrypt";
 import Token from "@/db/models/Token.model";
 import { compareSync } from "bcrypt";
@@ -17,7 +17,16 @@ export class UsersService {
       include: [
         { model: Message },
         { model: Hobby },
-        { model: New },
+        { model: News },
+      ]
+    });
+
+    return { data: foundUsers };
+  }
+
+  async getNews() {
+    const foundUsers = await News.findAll({
+      include: [
       ]
     });
 
@@ -62,13 +71,14 @@ export class UsersService {
       success: true,
       message: "Успешная регистрация.",
       data: result
-    }
+    };
   }
 
   generateJWT(owner: User): string {
     if (!owner) {
       throw new Error()
     }
+    
     const accessToken = sign(owner.toJSON(), process.env.TOKEN_SECRET || "mySecretForGenerationJWT", {
       algorithm: "HS256",
     });
@@ -77,39 +87,44 @@ export class UsersService {
   }
 
   async login(body: IUserLoginDTO) {
-    const foundUser = await User.findOne({ where: { email: body.email } })
-    if (foundUser) {
-      await Token.destroy({ where: { userId: foundUser.id } });
+    const foundUser = await User.findOne({
+      where: { email: body.email }
+    });
 
-      const correctPass = compareSync(body.password, foundUser.password);
-      if (!correctPass) {
-        return {
-          success: false,
-          message: "Неверный пароль.",
-        }
-      }
-
-      delete foundUser.password;
-      const token = this.generateJWT(foundUser);
-
-      await Token.create({
-        token,
-        userId: foundUser.id,
-      })
-
+    if (!foundUser) {
       return {
-        success: true,
-        message: "Успешная авторизация.",
-        user: foundUser,
-        token
-      }
+        success: false,
+        message: "Email не найден."
+      };
     }
+    await Token.destroy({
+      where: { userId: foundUser.id }
+    });
+
+    const correctPass = compareSync(body.password, foundUser.password);
+    if (!correctPass) {
+      return {
+        success: false,
+        message: "Неверный пароль.",
+      };
+    }
+
+    delete foundUser.password;
+    const token = this.generateJWT(foundUser);
+
+    await Token.create({
+      token,
+      userId: foundUser.id,
+    })
+
     return {
-      success: false,
-      message: "Ошибка авторизации.",
-    }
+      success: true,
+      message: "Успешная авторизация.",
+      user: foundUser,
+      token
+    };
   }
-  
+
   async addMessage(message: IMessageDTO) {
     const foundUsers = await User.findOne({ where: { email: message.email } })
     if (foundUsers) {
@@ -153,7 +168,7 @@ export class UsersService {
   }
 
 
-  async addNews(news: INewDTO) {
+  async addNews(news: INewsDTO) {
     const foundUsers = await User.findOne({ where: { email: news.email } })
     if (foundUsers) {
       const NEW_LIMIT = 3;
@@ -167,7 +182,7 @@ export class UsersService {
           .format("YYYY-MM-DD HH:mm:ss"),
       };
 
-      const newCount = await New.count({ where });
+      const newCount = await News.count({ where });
 
       if (newCount >= NEW_LIMIT) {
         return {
@@ -176,7 +191,7 @@ export class UsersService {
         };
       }
 
-      const result = new New();
+      const result = new News();
       result.userId = foundUsers.id
       result.name = news.name
       result.info = news.info
@@ -194,7 +209,7 @@ export class UsersService {
       message: 'Email отсутствует в базе.'
     };
   }
-  
+
   async destroy(self: User, userId: number) {
     if (!self.isAdmin) {
       return {
@@ -227,20 +242,20 @@ export class UsersService {
     };
   }
 
-  async update(id: number, body: IUserUpdateDTO){
+  async update(id: number, body: IUserUpdateDTO) {
     const foundUser = await User.findByPk(id);
 
-    if (body.password){
+    if (body.password) {
       foundUser.password = hashSync(body.password, genSaltSync(10))
     }
 
-    if(body.fio){
+    if (body.fio) {
       foundUser.fio = body.fio
     }
 
     await foundUser.save()
 
-    return{
+    return {
       success: true,
       message: "Успешное редактирование профиля.",
       user: foundUser

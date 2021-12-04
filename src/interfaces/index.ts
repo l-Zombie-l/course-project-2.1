@@ -10,3 +10,8 @@ export interface IUserContext {
   id: number;
   email: string;
 }
+
+export interface INewsContext extends Context {
+  user: IUserContext;
+  params: any;
+}

@@ -11,7 +11,7 @@ import {
 } from "sequelize-typescript";
 import Hobby from "./Hobby.model";
 import Message from "./Message.model";
-import New from "./New.model";
+import New from "./News.model";
 
 @Table({
   timestamps: true,
