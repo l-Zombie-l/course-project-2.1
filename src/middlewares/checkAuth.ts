@@ -10,9 +10,11 @@ export default async (ctx: IKoaContext, next: Next) => {
     token = ctx.request.headers['authorization'].split('Bearer ')[1];
   }
 
+  console.log("checkAuth                   "+ token)
+
   if (!token) {
     throw new AuthenticationError();
-  }
+  }  
 
   const verify = await verifyUserToken(token);
 

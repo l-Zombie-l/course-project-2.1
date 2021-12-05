@@ -1,14 +1,14 @@
 import User from "@/db/models/User.model";
 import Message from "@/db/models/Message.model";
 import Hobby from "@/db/models/Hobby.model";
-import News from "@/db/models/News.model";
 import { IMessageDTO, INewsDTO, IUserCreateDTO, IUserLoginDTO, IUserUpdateDTO } from "./dto";
 import moment from "moment";
 import { Op } from "sequelize";
 import { genSaltSync, hashSync } from "bcrypt";
 import Token from "@/db/models/Token.model";
 import { compareSync } from "bcrypt";
-import { sign } from "jsonwebtoken";
+import News from "@/db/models/News.model";
+import { sign } from "jsonwebtoken"
 
 export class UsersService {
 
@@ -78,12 +78,14 @@ export class UsersService {
     if (!owner) {
       throw new Error()
     }
-    
-    const accessToken = sign(owner.toJSON(), process.env.TOKEN_SECRET || "mySecretForGenerationJWT", {
-      algorithm: "HS256",
-    });
 
-    return accessToken
+    const access_token = sign(owner.toJSON(), process.env.TOKEN_SECRET || "mySecretForGenerationJWT",
+      {
+        algorithm: "HS256",
+      });
+
+    console.log("access_token                                 "+access_token)
+    return access_token
   }
 
   async login(body: IUserLoginDTO) {
@@ -97,9 +99,6 @@ export class UsersService {
         message: "Email не найден."
       };
     }
-    await Token.destroy({
-      where: { userId: foundUser.id }
-    });
 
     const correctPass = compareSync(body.password, foundUser.password);
     if (!correctPass) {
@@ -109,13 +108,16 @@ export class UsersService {
       };
     }
 
+    await Token.destroy({ where: { userId: foundUser.id } });
+
     delete foundUser.password;
+
     const token = this.generateJWT(foundUser);
 
     await Token.create({
       token,
       userId: foundUser.id,
-    })
+    });
 
     return {
       success: true,
@@ -123,6 +125,58 @@ export class UsersService {
       user: foundUser,
       token
     };
+  }
+  
+  async destroy(self: User, userId: number) {
+    if (!self.isAdmin) {
+      return {
+        success: false,
+        message: "Недостаточно полномочий.",
+      };
+    }
+
+    const foundUser = await User.findByPk(userId);
+    if (!foundUser) {
+      return {
+        success: false,
+        message: "Пользователь не найден.",
+      };
+    }
+
+    if (foundUser.isAdmin) {
+      return {
+        success: false,
+        message: "Удаление администратора запрещено.",
+      };
+    }
+    await Hobby.destroy({ where: { userId } });
+    await Message.destroy({ where: { userId } });
+    await User.destroy({ where: { id: userId } });
+
+    return {
+      success: true,
+      message: "Пользователь удален.",
+    };
+  }
+
+  async update(id: number, body: IUserUpdateDTO) {
+    const foundUser = await User.findByPk(id);
+
+    if (body.password) {
+      foundUser.password = hashSync(body.password, genSaltSync(10))
+    }
+
+    if (body.fio) {
+      foundUser.fio = body.fio
+    }
+
+    await foundUser.save()
+
+    return {
+      success: true,
+      message: "Успешное редактирование профиля.",
+      user: foundUser
+    }
   }
 
   async addMessage(message: IMessageDTO) {
@@ -209,59 +263,5 @@ export class UsersService {
       message: 'Email отсутствует в базе.'
     };
   }
-
-  async destroy(self: User, userId: number) {
-    if (!self.isAdmin) {
-      return {
-        success: false,
-        message: "Недостаточно полномочий.",
-      };
-    }
-
-    const foundUser = await User.findByPk(userId);
-    if (!foundUser) {
-      return {
-        success: false,
-        message: "Пользователь не найден.",
-      };
-    }
-
-    if (foundUser.isAdmin) {
-      return {
-        success: false,
-        message: "Удаление администратора запрещено.",
-      };
-    }
-    await Hobby.destroy({ where: { userId } });
-    await Message.destroy({ where: { userId } });
-    await User.destroy({ where: { id: userId } });
-
-    return {
-      success: true,
-      message: "Пользователь удален.",
-    };
-  }
-
-  async update(id: number, body: IUserUpdateDTO) {
-    const foundUser = await User.findByPk(id);
-
-    if (body.password) {
-      foundUser.password = hashSync(body.password, genSaltSync(10))
-    }
-
-    if (body.fio) {
-      foundUser.fio = body.fio
-    }
-
-    await foundUser.save()
-
-    return {
-      success: true,
-      message: "Успешное редактирование профиля.",
-      user: foundUser
-    }
-  }
 }
-
-
 export const usersFactory = () => new UsersService();
