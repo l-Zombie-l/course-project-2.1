@@ -10,28 +10,22 @@
             </thead>
             <tbody>
                 <tr>
-                    <td></td>
+                    <td>Заявление на 2-недельный отпуск</td>
                     <td>
-                        <div class="button btn btn-light"  type="button">
-                            <router-link class="router-link" to="/home/one">Выбрать</router-link>
-                        </div>
+                        <router-link class="router-link button btn btn-light" type="button" to="/home/one">Выбрать</router-link>
                     </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>
-                        <div class="button btn btn-light" type="button">
-                            <router-link class="router-link" to="/home/one">Выбрать</router-link>
-                        </div>
+                        <router-link class="router-link button btn btn-light" type="button" to="/home/one">Выбрать</router-link>
                     </td>
 
                 </tr>
                 <tr>
                     <td></td>
                     <td>
-                        <div class="button btn btn-light" type="button">
-                            <router-link class="router-link" to="/home/one">Выбрать</router-link>
-                        </div>
+                        <router-link class="router-link button btn btn-light" type="button" to="/home/one">Выбрать</router-link>
                     </td>
 
                 </tr>
@@ -43,7 +37,7 @@
 </template>
 
 <style lang="scss">
-.router-link{
+.router-link {
     text-decoration: none;
     color: #333;
 }
