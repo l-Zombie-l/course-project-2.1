@@ -1,6 +1,8 @@
 <template>
     <div class="one">
-        <h1>Welcome</h1>
+        <textarea>
+            d
+        </textarea>
     </div>
 </template>
 

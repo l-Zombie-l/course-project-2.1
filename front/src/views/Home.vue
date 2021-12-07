@@ -12,8 +12,8 @@
                 <tr>
                     <td></td>
                     <td>
-                        <div class="button btn btn-light" type="button">
-                            <router-link to="/home/one">Выбрать</router-link>
+                        <div class="button btn btn-light"  type="button">
+                            <router-link class="router-link" to="/home/one">Выбрать</router-link>
                         </div>
                     </td>
                 </tr>
@@ -21,7 +21,7 @@
                     <td></td>
                     <td>
                         <div class="button btn btn-light" type="button">
-                            <router-link to="/home/one">Выбрать</router-link>
+                            <router-link class="router-link" to="/home/one">Выбрать</router-link>
                         </div>
                     </td>
 
@@ -30,26 +30,36 @@
                     <td></td>
                     <td>
                         <div class="button btn btn-light" type="button">
-                            <router-link to="/home/one">Выбрать</router-link>
+                            <router-link class="router-link" to="/home/one">Выбрать</router-link>
                         </div>
                     </td>
 
                 </tr>
             </tbody>
         </table>
-        <textarea>
         <router-view />
-        </textarea>
     </div>
 </div>
 </template>
 
 <style lang="scss">
-#docx {
-    overflow: hidden;
-    background-color: rgba(50, 50, 50, 0.1);
-    padding: 30px;
-    margin: 30px;
+.router-link{
+    text-decoration: none;
+    color: #333;
+}
+
+.button {
+    display: inline-block;
+    width: 75%;
+    margin: 0px 5px 0px 5px;
+    text-align: center;
+
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 19px;
+    text-align: center;
+    color: #333;
 }
 </style>
 
@@ -67,6 +77,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
     components: {},
 })
 export default class Home extends Vue {
-    
+
 }
 </script>
