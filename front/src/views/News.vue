@@ -29,20 +29,6 @@
 
 <script lang="ts">
 
-
-// new Vue({
-//     methods:{
-//         getNews: async function() {
-//  const result = await axios.get('http://localhost:4100/news')
-//         this.news = result.data.data;
-//         console.log(this.news)
-//         }
-//     },
-//     created: function(){
-//         this.getNews()
-//     }
-// });
-
 import {
     Component,
     Vue

@@ -2,7 +2,7 @@
 <div id="app">
     <div id="nav">
         <ul>
-            <li><a href="/" class="text">Главная</a></li>
+            <li><a href="/home" class="text">Главная</a></li>
             <li><a href="/register" class="text">Регистрация</a></li>
             <li><a href="/news" class="text">Новости</a></li>
             <li style="float:right" ><a href="/profile" class="text">Профиль</a></li>

@@ -1,31 +1,57 @@
 <template>
-<div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <h1>Все пользователи БД</h1>
-    <button @click="getList()" class="btn btn-light">Показать всех пользователей</button><br><br>
-
+<div class="app">
     <div class="container">
-        <table class="table table-success table-striped">
+        <table class="table table-secondary table-striped">
             <thead>
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">ФИО</th>
-                    <th scope="col">Email</th>
+                    <th scope="col">Название документа</th>
                     <th scope="col">Действие</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="user in users" :key="user.id">
-                    <td>{{user.id}}</td>
-                    <td>{{user.fio}}</td>
-                    <td>{{user.email}}</td>
-                    <td><button class="btn btn-light" @click="deleteUser()">Удалить</button></td>
+                <tr>
+                    <td></td>
+                    <td>
+                        <div class="button btn btn-light" type="button">
+                            <router-link to="/home/one">Выбрать</router-link>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <div class="button btn btn-light" type="button">
+                            <router-link to="/home/one">Выбрать</router-link>
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <div class="button btn btn-light" type="button">
+                            <router-link to="/home/one">Выбрать</router-link>
+                        </div>
+                    </td>
+
                 </tr>
             </tbody>
         </table>
+        <textarea>
+        <router-view />
+        </textarea>
     </div>
 </div>
 </template>
+
+<style lang="scss">
+#docx {
+    overflow: hidden;
+    background-color: rgba(50, 50, 50, 0.1);
+    padding: 30px;
+    margin: 30px;
+}
+</style>
 
 <script lang="ts">
 import {
@@ -41,20 +67,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
     components: {},
 })
 export default class Home extends Vue {
-    users: any[] = [];
-
-    response = "";
-
-    async getList() {
-        const result = await axios.get('http://localhost:4100/users')
-        this.users = result.data.data;
-        console.log(this.users)
-    }
-
-    async deleteUser() {
-        const result = await axios.delete('http://localhost:4100/users')
-        this.users = result.data.data;
-        console.log(this.users)
-    }
+    
 }
 </script>

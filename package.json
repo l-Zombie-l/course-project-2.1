@@ -67,7 +67,8 @@
     "sequelize-typescript": "^2.1.0",
     "sqlite3": "^5.0.2",
     "umzug": "^3.0.0-beta.16",
-    "util": "^0.12.4"
+    "util": "^0.12.4",
+    "vue-router": "^3.5.3"
   },
   "nodemonConfig": {
     "ignore": [
