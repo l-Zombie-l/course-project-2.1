@@ -9,6 +9,11 @@ export const list = async (ctx: IKoaContext) => {
   ctx.body = { ...usersList };
 };
 
+export const listNews = async (ctx: IKoaContext) => {
+  const newsList = await usersFactory().getNews();
+  ctx.body = { ...newsList };
+};
+
 export const register = async (ctx: IKoaContext) => {
   const body: IUserCreateDTO = ctx.request.body;
 
@@ -55,11 +60,6 @@ export const createNews = async (ctx: IKoaContext) => {
   );
   const result = await usersFactory().addNews(body);
   ctx.body = result;
-};
-
-export const listNews = async (ctx: IKoaContext) => {
-  const newsList = await usersFactory().getNews();
-  ctx.body = { ...newsList };
 };
 
 export const destroy = async (ctx: IKoaContext) => {
