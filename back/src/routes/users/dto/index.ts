@@ -61,9 +61,9 @@ export class IUserUpdateDTO {
     @Length(6, 100, {})
     fio: string;
 
-    @IsDefined()
-    @Length(6, 20, {})
-    password: string;
+    // @IsDefined()
+    // @Length(6, 20, {})
+    // password: string;
 }
 
 export class ICreateIGetNewsDTO extends IGetNewsDTO {}

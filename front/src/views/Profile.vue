@@ -1,7 +1,7 @@
 <template>
-<div class="profile">
+<div class="container">
     <div v-if="!token">
-        <h1>Авторизация</h1>
+        <h2>Авторизация</h2>
         <form class="form-horizontal">
             <div class="form-group">
                 <label for="inputEmail" class="col-xs-2 control-label text-start">Адрес email: </label>
@@ -20,23 +20,26 @@
         </form><br>
     </div>
     <div v-else class="profile">
-        <h1>Профиль</h1>
+        <h2>Профиль</h2>
         <form class="form-horizontal">
-            <div class="form-group" v-for="user in users" :key="user.id">
+            <div class="form-group">
                 <label for="inputText" class="col-xs-2 control-label text-start">ФИО: </label>
-                <input type="text" class="form-control col-xs-10" id="inputText" placeholder="Введите ФИО" {{user.fio}}><br>
+                <input type="text" class="form-control col-xs-10" id="inputText" placeholder="Введите ФИО" v-model="this.fio"><br>
 
                 <label for="inputEmail" class="col-xs-2 control-label text-start">Адрес email: </label>
-                <input readonly type="email" class="form-control col-xs-10" id="inputEmail" placeholder="Введите email" {{user.email}}><br>
+                <input readonly type="email" class="form-control col-xs-10" id="inputEmail" placeholder="Введите email" v-model="this.email"><br>
 
                 <label for="inputPassword" class="col-xs-2 control-label">Пароль: </label>
-                <input type="password" class="form-control col-xs-10" id="inputPassword" placeholder="Введите пароль" {{user.password}}>
+                <input type="password" class="form-control col-xs-10" id="inputPassword" placeholder="Введите пароль" v-model="this.password">
             </div><br>
         </form>
-
         <form class="form-horizontal" @submit.prevent="">
             <div class="buttons">
                 <button type="button" class="button btn btn-light" @click="logout()">Выход</button>
+            </div>
+        </form><br>
+        <form class="form-horizontal" @submit.prevent="">
+            <div class="buttons">
                 <button type="button" class="button btn btn-light" @click="save()">Сохранить изменение</button>
                 <button type="button" class="button btn btn-light" @click="deleteUser()">Удалить аккаунт</button>
             </div>
@@ -93,28 +96,40 @@ export default class Profile extends Vue {
     form = {
         fio: "Бунина Алёна Владимировна",
         email: "ich_liebe_dich_nicht@vk.com",
-        password: "987456321"
+        password: "987456321",
     }
     token = "";
-    user = [];
+    fio = "";
+    email = "";
+    password = "";
 
-      async login() {
+    user = [];
+  
+    response = "";
+
+    async login() {
         const result = await this.$store.dispatch("login", this.form);
         this.token = result.token;
+        this.fio = result.user.fio;
+        this.email = result.user.email;
+        this.password = result.user.password;
     }
 
     async save() {
-        const result = await axios.put('http://localhost:4100/user/update', this.form);
-        //    const result1 = await axios.post(`${process.env.VUE_APP_SERVER_HOST}/users`, this.form);
+         const result = await this.$store.dispatch("updata", this.form);
     }
 
     async deleteUser() {
         const result = await axios.delete('http://localhost:4100/user/delete/:id');
     }
 
+    async logout() {
+        const result = await this.$store.dispatch("logout");
+        this.token = "";
+    }
+
     mounted() {
         this.token = localStorage.token;
     }
-
 }
 </script>

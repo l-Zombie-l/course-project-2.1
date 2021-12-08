@@ -25,12 +25,12 @@ export class UsersService {
   }
 
   async getNews() {
-    const foundUsers = await News.findAll({
+    const foundNews = await News.findAll({
       include: [
       ]
     });
 
-    return { data: foundUsers };
+    return { data: foundNews };
   }
 
   async register(user: IUserCreateDTO) {
@@ -162,9 +162,9 @@ export class UsersService {
   async update(id: number, body: IUserUpdateDTO) {
     const foundUser = await User.findByPk(id);
 
-    if (body.password) {
-      foundUser.password = hashSync(body.password, genSaltSync(10))
-    }
+    // if (body.password) {
+    //   foundUser.password = hashSync(body.password, genSaltSync(10))
+    // }
 
     if (body.fio) {
       foundUser.fio = body.fio
@@ -261,6 +261,15 @@ export class UsersService {
     return {
       success: false,
       message: 'Email отсутствует в базе.'
+    };
+  }
+
+  async logout(body: Token){
+    await Token.destroy({where:{}});
+
+    return{
+      seccess: true,
+      message: "Успешный выход"
     };
   }
 }

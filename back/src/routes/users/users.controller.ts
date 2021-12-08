@@ -1,4 +1,4 @@
-import { IKoaContext, INewsContext } from "@/interfaces";
+import { IKoaContext, IKoaTokenContext} from "@/interfaces";
 import { usersFactory } from "@/routes/users/users.service";
 import { ServerValidationError } from "@/utils/errors";
 import { transformAndValidate } from "class-transformer-validator";
@@ -67,9 +67,16 @@ export const destroy = async (ctx: IKoaContext) => {
   ctx.body = result;
 };
 
+export const logout = async (ctx: IKoaContext) => {
+  const result = await usersFactory().logout(ctx.user.id);
+  ctx.body = result;
+};
+
 export const update = async (ctx: IKoaContext) => {
   const body: IUserUpdateDTO = ctx.request.body;
 
   const result = await usersFactory().update(ctx.user.id, body);
   ctx.body = result;
 };
+
+

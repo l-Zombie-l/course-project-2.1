@@ -14,7 +14,7 @@
     <form class="form-horizontal" @submit.prevent="">
         <div class="buttons">
             <button type="button" class="button btn btn-light" @click="login()">Вход</button>
-             <a href="/register" class="button btn btn-light"><button type="button" class="register">Регистрация</button></a>
+            <a href="/register" class="button btn btn-light"><button type="button" class="register">Регистрация</button></a>
         </div>
     </form><br>
     {{response}}
@@ -47,9 +47,9 @@
     color: #333;
 }
 
-.register{
-border: 0ch;
-background-color: rgba(0, 0, 0, 0);
+.register {
+    border: 0ch;
+    background-color: rgba(0, 0, 0, 0);
 }
 </style>
 
@@ -66,18 +66,25 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 @Component({
     components: {},
 })
-export default class Home extends Vue {
+export default class Login extends Vue {
     form = {
         fio: "",
         email: "ich_liebe_dich_nicht@vk.com",
         password: "987456321"
     }
+    user = [];
+    fio="";
+    email="";
+    password="";
 
-    response = "Ожидание действий пользователя.";
+    response = "";
 
     async login() {
-        const result = await axios.post('http://localhost:4100/login', this.form);
-        this.response = JSON.stringify(result.data);        
+        const result = await this.$store.dispatch("login", this.form);
+        this.fio = result.fio;
+        this.email = result.email;
+        this.password = result.password;
+        this.response = JSON.stringify(this.fio);
     }
     async register() {
         const result = await axios.post('http://localhost:4100/login', this.form);

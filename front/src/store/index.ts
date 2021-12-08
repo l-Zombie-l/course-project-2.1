@@ -8,9 +8,7 @@ const instance = axios.create({
   baseURL: process.env.VUE_APP_SERVER_HOST,
 });
 
-instance.defaults.headers.common[
-  "Authorization"
-] = `Bearer ${localStorage.token}`;
+instance.defaults.headers.common["Authorization"] = `Bearer ${localStorage.token}`;
 
 export default new Vuex.Store({
   state: {
@@ -23,24 +21,25 @@ export default new Vuex.Store({
       instance.defaults.headers.common["Authorization"] = `Bearer ${value}`;
     },
   },
+
   actions: {
     async login({ state, commit, rootState }, params) {
-      const { data } = await instance.post("/login", params);
+      const { data } = await axios.post('http://localhost:4100/login', params);
       const token = data.success ? data.token : "";
       commit("setToken", token);
       return data;
     },
 
     async logout({ state, commit, rootState }) {
-      const { data } = await instance.get("/logout");
+      const { data } = await instance.get('http://localhost:4100/user/logout');
       commit("setToken", "");
       return data;
     },
 
-    // async usersList({ state }, params) {
-    //   const { data } = await instance.get("/user/list");
-    //   return data;
-    // },
+    async update({ state, commit, rootState }) {
+      const { data } = await instance.put('http://localhost:4100/user/update');
+      return data;
+    },
   },
   modules: {},
 });

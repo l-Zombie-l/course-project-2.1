@@ -26,6 +26,7 @@ router.post("/login", login.bind(this));
 router.post("/add_news", checkNews, createNews);
 router.get("/news", checkNews, listNews);
 router.get("/users", checkNews, list);
+// router.get("/one_user", viewOne.bind(this));
 
 router.use(userRoutes.routes());
 

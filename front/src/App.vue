@@ -72,7 +72,7 @@ li a:hover {
     overflow: hidden;
     background-color: rgba(50, 50, 50, 0.9);
     // backdrop-filter: blur(5px);
-    padding: 30px;
+    padding: 15px;
     margin: 30px; 
 }
 </style>
