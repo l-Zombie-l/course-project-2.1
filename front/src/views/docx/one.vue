@@ -1,13 +1,13 @@
 <template>
-    <div class="one">
-       
+    <div class="one div">
+       <h1>Отчет о проделанной работе за 2021 год</h1>
     </div>
 </template>
 
 <style lang="scss">
-.pre{
-    width: 100%;
-    height: 100px;
+.div{
+    background-color: white;
+    color: #333;
 }
 </style>
 

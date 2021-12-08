@@ -1,6 +1,7 @@
 <template>
 <div class="app">
     <div class="container">
+        <h3>Система формирования отчетной документации на базе шаблонных форм</h3><br>
         <table class="table table-secondary table-striped">
             <thead>
                 <tr>
@@ -10,7 +11,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>Заявление на 2-недельный отпуск</td>
+                    <td>Отчет о проделанной работе за 2021г.</td>
                     <td>
                         <router-link class="router-link button btn btn-light" type="button" to="/home/one">Выбрать</router-link>
                     </td>
@@ -20,14 +21,12 @@
                     <td>
                         <router-link class="router-link button btn btn-light" type="button" to="/home/one">Выбрать</router-link>
                     </td>
-
                 </tr>
                 <tr>
                     <td></td>
                     <td>
                         <router-link class="router-link button btn btn-light" type="button" to="/home/one">Выбрать</router-link>
                     </td>
-
                 </tr>
             </tbody>
         </table>

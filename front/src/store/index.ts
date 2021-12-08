@@ -29,9 +29,18 @@ export default new Vuex.Store({
       const token = data.success ? data.token : "";
       commit("setToken", token);
       return data;
-    },  
+    },
+
+    async logout({ state, commit, rootState }) {
+      const { data } = await instance.get("/logout");
+      commit("setToken", "");
+      return data;
+    },
+
+    // async usersList({ state }, params) {
+    //   const { data } = await instance.get("/user/list");
+    //   return data;
+    // },
   },
   modules: {},
 });
-
-
