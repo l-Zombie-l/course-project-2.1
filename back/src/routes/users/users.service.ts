@@ -159,6 +159,15 @@ export class UsersService {
     };
   }
 
+  // async getOneNews(self: News, id: number) {
+  //   const foundNews = await News.findOne({ where: { id: self.id } })
+
+  //   return {
+  //     success: true,
+  //     news: foundNews,
+  //   };    
+  // }
+
   async update(id: number, body: IUserUpdateDTO) {
     const foundUser = await User.findByPk(id);
 
@@ -178,9 +187,22 @@ export class UsersService {
       user: foundUser
     }
   }
-  
+
+  async read(id: number) {
+    const foundUser = await User.findByPk(id);
+
+    if (!foundUser) {
+      return {
+        success: false,
+        message: "пользователь не найден",
+      };
+    }
+
+    return foundUser;
+  }
+
   async updateNews(id: number, body: INewsCreateDTO) {
-    const foundUser = await User.findByPk(id);   
+    const foundUser = await User.findByPk(id);
 
     if (body.name) {
       foundUser.password = body.name
@@ -277,12 +299,12 @@ export class UsersService {
     };
   }
 
-  async logout(body: Token) {
-    await Token.destroy({ where: {} });
+  async logout(userId: number) {
+    await Token.destroy({ where: { userId } });
 
     return {
-      seccess: true,
-      message: "Успешный выход"
+      success: true,
+      message: "успешный выход из системы",
     };
   }
 }

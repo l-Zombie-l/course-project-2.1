@@ -14,7 +14,6 @@ export class IUserCreateDTO {
 }
 
 export class IUserLoginDTO {
-    
     @IsEmail()
     email: string;
 

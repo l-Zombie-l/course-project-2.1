@@ -81,7 +81,7 @@ export default class Home extends Vue {
     
     // async update_news() {
     //     const result = await this.$store.dispatch("update_news", this.form);
-    //     console.log(result.data);
+    //     console.log(result);
     // }
 }
 </script>

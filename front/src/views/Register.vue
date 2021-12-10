@@ -79,7 +79,7 @@ export default class Home extends Vue {
     async register() {
         const result = await axios.post('http://localhost:4100/register', this.form);
         //    const result1 = await axios.post(`${process.env.VUE_APP_SERVER_HOST}/users`, this.form);
-        this.response = JSON.stringify(result.data);
+        this.response = JSON.stringify(result);
     }
 
 }

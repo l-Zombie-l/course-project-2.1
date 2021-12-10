@@ -73,7 +73,7 @@ export default class Home extends Vue {
         const result = await this.$store.dispatch("updateNews", this.form);
         this.name = JSON.stringify(result.data.name);
 
-        console.log(result.data);
+        console.log(result);
     }
 }
 </script>
