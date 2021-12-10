@@ -28,7 +28,7 @@
                 <input type="text" class="form-control col-xs-10" id="inputText" placeholder="Введите ФИО" v-model="form.fio"><br>
 
                 <label for="inputEmail" class="col-xs-2 control-label text-start">Адрес email: </label>
-                <input readonly type="email" class="form-control col-xs-10" id="inputEmail" placeholder="Введите email" v-model="this.email"><br>
+                <input readonly type="email" class="form-control col-xs-10" id="inputEmail" placeholder="Введите email" v-model="form.email"><br>
 
                 <label for="inputPassword" class="col-xs-2 control-label">Пароль: </label>
                 <input type="text" class="form-control col-xs-10" id="inputPassword" placeholder="Введите пароль" v-model="form.password">
@@ -43,7 +43,7 @@
             <div class="buttons">
                 <button type="button" class="button btn btn-light" @click="save()">Сохранить изменение</button>
                 <p class="sympol">|⁣</p>
-                <button type="button" class="button btn btn-light" @click="deleteUser()">Удалить аккаунт</button>
+                <button type="button" class="button btn btn-light" @click="deleteUser(user.id)">Удалить аккаунт</button>
             </div>
         </form><br>
     </div>
@@ -106,8 +106,8 @@ export default class Profile extends Vue {
         password: "987456321",
     }
     token = "";
-    fio = this.form.fio;
-    email = this.form.email;
+    // fio = this.form.fio;
+    // email = this.form.email;
 
     user = [];
 
@@ -116,20 +116,19 @@ export default class Profile extends Vue {
     async login() {
         const result = await this.$store.dispatch("login", this.form);
         this.token = result.token;
-        this.fio = result.user.fio;
-        this.email = result.user.email;
-        console.log(result.data);
+        // this.fio = result.user.fio;
+        // this.email = result.user.email;
+        console.log(result);
+        
     }
 
     async save() {
         const result = await this.$store.dispatch("update", this.form);
-        console.log(result.data);
+        console.log(result);
     }
 
-    async deleteUser() {
-        const result = await axios.delete('http://localhost:4100/user/delete/:id');
-        console.log(result.data);
-
+    async userDelete(id: any) {
+        alert(`Удаление пользователя id:${id}`);
     }
 
     async logout() {

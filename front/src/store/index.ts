@@ -8,7 +8,9 @@ const instance = axios.create({
   baseURL: process.env.VUE_APP_SERVER_HOST,
 });
 
-instance.defaults.headers.common["Authorization"] = `Bearer ${localStorage.token}`;
+instance.defaults.headers.common[
+  "Authorization"
+] = `Bearer ${localStorage.token}`;
 
 export default new Vuex.Store({
   state: {
