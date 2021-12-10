@@ -1,7 +1,7 @@
 import User from "@/db/models/User.model";
 import Message from "@/db/models/Message.model";
 import Hobby from "@/db/models/Hobby.model";
-import { IMessageDTO, INewsDTO, IUserCreateDTO, IUserLoginDTO, IUserUpdateDTO } from "./dto";
+import { IMessageDTO, INewsCreateDTO, IUserCreateDTO, IUserLoginDTO, IUserUpdateDTO } from "./dto";
 import moment from "moment";
 import { Op } from "sequelize";
 import { genSaltSync, hashSync } from "bcrypt";
@@ -84,7 +84,7 @@ export class UsersService {
         algorithm: "HS256",
       });
 
-    console.log("access_token                                 "+access_token)
+    console.log("access_token                                 " + access_token)
     return access_token
   }
 
@@ -126,7 +126,7 @@ export class UsersService {
       token
     };
   }
-  
+
   async destroy(self: User, userId: number) {
     if (!self.isAdmin) {
       return {
@@ -162,9 +162,9 @@ export class UsersService {
   async update(id: number, body: IUserUpdateDTO) {
     const foundUser = await User.findByPk(id);
 
-    // if (body.password) {
-    //   foundUser.password = hashSync(body.password, genSaltSync(10))
-    // }
+    if (body.password) {
+      foundUser.password = hashSync(body.password, genSaltSync(10))
+    }
 
     if (body.fio) {
       foundUser.fio = body.fio
@@ -175,6 +175,26 @@ export class UsersService {
     return {
       success: true,
       message: "Успешное редактирование профиля.",
+      user: foundUser
+    }
+  }
+  
+  async updateNews(id: number, body: INewsCreateDTO) {
+    const foundUser = await User.findByPk(id);   
+
+    if (body.name) {
+      foundUser.password = body.name
+    }
+
+    if (body.info) {
+      foundUser.fio = body.info
+    }
+
+    await foundUser.save()
+
+    return {
+      success: true,
+      message: "Успешное редактирование.",
       user: foundUser
     }
   }
@@ -222,52 +242,45 @@ export class UsersService {
   }
 
 
-  async addNews(news: INewsDTO) {
-    const foundUsers = await User.findOne({ where: { email: news.email } })
-    if (foundUsers) {
-      const NEW_LIMIT = 3;
-      const NEW_DELAY = 30;
-      const where: any = {};
+  async addNews(userId: number, news: INewsCreateDTO) {
+    const NEW_LIMIT = 3;
+    const NEW_DELAY = 60;
+    const where: any = {};
 
-      where.userId = foundUsers.id;
-      where.createdAt = {
-        [Op.gte]: moment()
-          .subtract(NEW_DELAY, "seconds")
-          .format("YYYY-MM-DD HH:mm:ss"),
-      };
+    where.userId = userId;
+    where.createdAt = {
+      [Op.gte]: moment()
+        .subtract(NEW_DELAY, "seconds")
+        .format("YYYY-MM-DD HH:mm:ss"),
+    };
 
-      const newCount = await News.count({ where });
+    const newCount = await News.count({ where });
 
-      if (newCount >= NEW_LIMIT) {
-        return {
-          success: false,
-          message: `За ${NEW_DELAY} секунд отправлено ${newCount} сообщений. Лимит (${NEW_LIMIT}!)`,
-        };
-      }
-
-      const result = new News();
-      result.userId = foundUsers.id
-      result.name = news.name
-      result.info = news.info
-
-      await result.save();
-
+    if (newCount >= NEW_LIMIT) {
       return {
-        success: true,
-        message: "Успешно добавлено.",
-        data: result
-      }
+        success: false,
+        message: `За ${NEW_DELAY} секунд отправлено ${newCount} новостей. Лимит (${NEW_LIMIT}!)`,
+      };
     }
+
+    const result = new News();
+    result.userId = userId
+    result.name = news.name
+    result.info = news.info
+
+    await result.save();
+
     return {
-      success: false,
-      message: 'Email отсутствует в базе.'
+      success: true,
+      message: "Успешно добавлено.",
+      data: result
     };
   }
 
-  async logout(body: Token){
-    await Token.destroy({where:{}});
+  async logout(body: Token) {
+    await Token.destroy({ where: {} });
 
-    return{
+    return {
       seccess: true,
       message: "Успешный выход"
     };

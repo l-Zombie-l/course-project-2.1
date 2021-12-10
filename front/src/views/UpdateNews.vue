@@ -1,10 +1,10 @@
 <template>
 <div class="add">
-    <h1>Добавить новость</h1>
+    <h1>Изменить новость</h1>
     <form class="form-horizontal">
         <div class="form-group">
             <label for="inputName" class="col-xs-2 control-label">Название: </label>
-            <input type="text" class="form-control col-xs-10" id="inputName" placeholder="Введите название статьи" v-model="form.name"> <br>
+            <input type="text" class="form-control col-xs-10" id="inputName" placeholder="Введите название статьи" v-model="this.name"> <br>
 
             <label for="inputNew" class="col-xs-2 control-label">Содержимое: </label>
             <textarea type="text" class="form-control col-xs-10 news" id="inputNew" placeholder="Введите содержимое статьи" v-model="form.info"></textarea>
@@ -12,7 +12,7 @@
     </form>
     <form class="form-horizontal" @submit.prevent="">
         <div class="buttons">
-            <button type="button" class="button btn btn-light" @click="addNew()">Добавить статью</button>
+            <button type="button" class="button btn btn-light" @click="save()">Изменить статью</button>
         </div>
     </form><br>
     {{response}}
@@ -64,14 +64,15 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 })
 export default class Home extends Vue {
     form = {
-        name: "Волк",
-        info: "Ауф"
-    }
 
+    }
+    name = "";
     response = "Ожидание действий пользователя.";
 
-    async addNew() {
-        const result = await this.$store.dispatch("addNews", this.form);
+    async save() {
+        const result = await this.$store.dispatch("updateNews", this.form);
+        this.name = JSON.stringify(result.data.name);
+
         console.log(result.data);
     }
 }

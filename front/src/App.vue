@@ -5,6 +5,8 @@
             <li><a href="/home" class="text">Главная</a></li>
             <li><a href="/register" class="text">Регистрация</a></li>
             <li><a href="/news" class="text">Новости</a></li>
+            <li><a href="/add_news" class="text">Добавить новость</a></li>
+
             <li style="float:right" ><a href="/profile" class="text">Профиль</a></li>
         </ul>
     </div>
@@ -72,7 +74,7 @@ li a:hover {
     overflow: hidden;
     background-color: rgba(50, 50, 50, 0.9);
     // backdrop-filter: blur(5px);
-    padding: 15px;
+    padding: 1%;
     margin: 30px; 
 }
 </style>

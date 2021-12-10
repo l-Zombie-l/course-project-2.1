@@ -21,7 +21,7 @@
 
     <form class="form-horizontal" @submit.prevent="">
         <div class="buttons">
-           <button type="button" class="button btn btn-light" @click="register()">Регистрация</button>
+            <button type="button" class="button btn btn-light" @click="register()">Регистрация</button>
         </div>
     </form><br>
     {{response}}
@@ -31,19 +31,18 @@
 <style lang="scss">
 .form-group {
     text-align: left;
-    padding: 0px 300px 0px 300px;
+    padding: 0px 25% 0px 25%;
 }
 
 .buttons {
     display: flex;
-    padding: 0px 295px 0px 295px;
+    padding: 0px 25% 0px 25%;
     justify-content: center;
 }
 
 .button {
     display: inline-block;
     width: 100%;
-    margin: 0px 5px 0px 5px;
     text-align: center;
 
     font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -80,7 +79,7 @@ export default class Home extends Vue {
     async register() {
         const result = await axios.post('http://localhost:4100/register', this.form);
         //    const result1 = await axios.post(`${process.env.VUE_APP_SERVER_HOST}/users`, this.form);
-           this.response = JSON.stringify(result.data);
+        this.response = JSON.stringify(result.data);
     }
 
 }

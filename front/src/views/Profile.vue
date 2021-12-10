@@ -8,13 +8,14 @@
                 <input type="email" class="form-control col-xs-10" id="inputEmail" placeholder="Введите email" v-model="form.email"><br>
 
                 <label for="inputPassword" class="col-xs-2 control-label">Пароль: </label>
-                <input type="password" class="form-control col-xs-10" id="inputPassword" placeholder="Введите пароль" v-model="form.password">
+                <input type="text" class="form-control col-xs-10" id="inputPassword" placeholder="Введите пароль" v-model="form.password">
             </div><br>
         </form>
 
         <form class="form-horizontal" @submit.prevent="">
             <div class="buttons">
                 <button type="button" class="button btn btn-light" @click="login()">Вход</button>
+                <p class="sympol">|⁣</p>
                 <a href="/register" class="button btn btn-light"><button type="button" class="register">Регистрация</button></a>
             </div>
         </form><br>
@@ -24,13 +25,13 @@
         <form class="form-horizontal">
             <div class="form-group">
                 <label for="inputText" class="col-xs-2 control-label text-start">ФИО: </label>
-                <input type="text" class="form-control col-xs-10" id="inputText" placeholder="Введите ФИО" v-model="this.fio"><br>
+                <input type="text" class="form-control col-xs-10" id="inputText" placeholder="Введите ФИО" v-model="form.fio"><br>
 
                 <label for="inputEmail" class="col-xs-2 control-label text-start">Адрес email: </label>
                 <input readonly type="email" class="form-control col-xs-10" id="inputEmail" placeholder="Введите email" v-model="this.email"><br>
 
                 <label for="inputPassword" class="col-xs-2 control-label">Пароль: </label>
-                <input type="password" class="form-control col-xs-10" id="inputPassword" placeholder="Введите пароль" v-model="this.password">
+                <input type="text" class="form-control col-xs-10" id="inputPassword" placeholder="Введите пароль" v-model="form.password">
             </div><br>
         </form>
         <form class="form-horizontal" @submit.prevent="">
@@ -41,6 +42,7 @@
         <form class="form-horizontal" @submit.prevent="">
             <div class="buttons">
                 <button type="button" class="button btn btn-light" @click="save()">Сохранить изменение</button>
+                <p class="sympol">|⁣</p>
                 <button type="button" class="button btn btn-light" @click="deleteUser()">Удалить аккаунт</button>
             </div>
         </form><br>
@@ -51,19 +53,19 @@
 <style lang="scss">
 .form-group {
     text-align: left;
-    padding: 0px 300px 0px 300px;
+    padding: 0px 25% 0px 25%;
 }
 
 .buttons {
     display: flex;
-    padding: 0px 295px 0px 295px;
+    padding: 0px 25% 0px 25%;
     justify-content: center;
 }
 
 .button {
     display: inline-block;
     width: 100%;
-    margin: 0px 5px 0px 5px;
+
     text-align: center;
 
     font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -77,6 +79,11 @@
 .register {
     border: 0ch;
     background-color: rgba(0, 0, 0, 0);
+}
+
+.sympol {
+    color: rgba(255, 255, 255, 0);
+    ;
 }
 </style>
 
@@ -94,17 +101,16 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default class Profile extends Vue {
     form = {
-        fio: "Бунина Алёна Владимировна",
+        fio: "???",
         email: "ich_liebe_dich_nicht@vk.com",
         password: "987456321",
     }
     token = "";
-    fio = "";
-    email = "";
-    password = "";
+    fio = this.form.fio;
+    email = this.form.email;
 
     user = [];
-  
+
     response = "";
 
     async login() {
@@ -112,15 +118,18 @@ export default class Profile extends Vue {
         this.token = result.token;
         this.fio = result.user.fio;
         this.email = result.user.email;
-        this.password = result.user.password;
+        console.log(result.data);
     }
 
     async save() {
-         const result = await this.$store.dispatch("updata", this.form);
+        const result = await this.$store.dispatch("update", this.form);
+        console.log(result.data);
     }
 
     async deleteUser() {
         const result = await axios.delete('http://localhost:4100/user/delete/:id');
+        console.log(result.data);
+
     }
 
     async logout() {

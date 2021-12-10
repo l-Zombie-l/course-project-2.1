@@ -53,7 +53,7 @@ export class NotFoundErrorToken extends ApiError {
     this.name = "NotFoundErrorToken";
     this.message = message || "Объект не найден (token).";
     this.errorCode = errorCode;
-    this.status = 401;
+    this.status = 402;
     this.stack = errorCode;
   }
 }
@@ -65,7 +65,7 @@ export class NotFoundError extends ApiError {
     this.name = "NotFoundErrorUser";
     this.message = message || "Объект не найден (user).";
     this.errorCode = errorCode;
-    this.status = 401;
+    this.status = 403;
     this.stack = errorCode;
   }
 }

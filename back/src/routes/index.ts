@@ -1,7 +1,7 @@
 import { Context, DefaultState } from "koa";
 import Router from "koa-router";
 import userRoutes from "@/routes/users/index";
-import { createNews, list, login, register, listNews } from "./users/users.controller";
+import { list, login, register, listNews } from "./users/users.controller";
 import checkNews from "@/middlewares/checkNews";
 
 const router = new Router<DefaultState, Context>();
@@ -23,7 +23,6 @@ router.get("/", (ctx: any) => {
 
 router.post("/register", register.bind(this));
 router.post("/login", login.bind(this));
-router.post("/add_news", checkNews, createNews);
 router.get("/news", checkNews, listNews);
 router.get("/users", checkNews, list);
 // router.get("/one_user", viewOne.bind(this));

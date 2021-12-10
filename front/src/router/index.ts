@@ -26,7 +26,7 @@ const routes: Array<RouteConfig> = [
       import("../views/Register.vue"),
   },
   {
-    path: "/add",
+    path: "/add_news",
     name: "AddNews",
     component: () =>
       import("../views/AddNews.vue"),
@@ -36,13 +36,6 @@ const routes: Array<RouteConfig> = [
     name: "news",  
     component: () => import("../views/News.vue"),
   },
-
-  {
-    path: "/login",
-    name: "Login",
-    component: () => import("../views/Login.vue"),
-  },
-
   {
     path: "/profile",
     name: "Profile",

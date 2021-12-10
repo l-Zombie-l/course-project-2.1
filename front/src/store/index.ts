@@ -36,8 +36,18 @@ export default new Vuex.Store({
       return data;
     },
 
-    async update({ state, commit, rootState }) {
-      const { data } = await instance.put('http://localhost:4100/user/update');
+    async update({ state }, params) {
+      const { data } = await instance.put('http://localhost:4100/user/update', params);
+      return data;
+    },
+
+    async updateNews({ state }, params) {
+      const { data } = await instance.put('http://localhost:4100/user/update_news', params);
+      return data;
+    },
+
+    async addNews({ state }, params) {
+      const { data } = await instance.post('http://localhost:4100/user/add_news', params);
       return data;
     },
   },
