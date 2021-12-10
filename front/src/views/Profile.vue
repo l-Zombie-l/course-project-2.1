@@ -100,26 +100,24 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 @Component({})
 
 export default class Profile extends Vue {
+    token = "";
+    localValue = localStorage.getItem('fio');
+    user = [];
+    response = "";
+
     form = {
-        fio: "???",
+        fio: this.localValue,
         email: "ich_liebe_dich_nicht@vk.com",
         password: "987456321",
     }
-    token = "";
-    // fio = this.form.fio;
-    // email = this.form.email;
-
-    user = [];
-
-    response = "";
 
     async login() {
         const result = await this.$store.dispatch("login", this.form);
         this.token = result.token;
-        // this.fio = result.user.fio;
-        // this.email = result.user.email;
         console.log(result);
-        
+
+        localStorage.setItem('fio', result.user.fio);
+        // this.$router.go(0);
     }
 
     async save() {
@@ -134,10 +132,13 @@ export default class Profile extends Vue {
     async logout() {
         const result = await this.$store.dispatch("logout");
         this.token = "";
+        
     }
 
     mounted() {
         this.token = localStorage.token;
+        localStorage.setItem('fio', "");
+        this.localValue="";
     }
 }
 </script>
