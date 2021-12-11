@@ -1,7 +1,7 @@
 <template>
 <div class="one div">
     <div class="container">
-        <h1>Отчет о проделанной работе за 2021 год</h1>
+        <h1>///</h1>
         <table class="table table-secondary table-striped">
             <thead>
                 <tr>
@@ -14,9 +14,7 @@
                 <tr v-for="news in news" :key="news.id">
                     <td></td>
                     <td>{{news.name}}</td>
-                    <td>
-                        <p class="cuttedText">{{news.info}}</p>
-                    </td>
+                    <td>{{news.info}}</td>
                 </tr>
             </tbody>
         </table>
@@ -28,14 +26,6 @@
 .div {
     background-color: white;
     color: #333;
-}
-
-.cuttedText {
-    display: block;
-    width: 5px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
 }
 </style>
 
@@ -60,10 +50,9 @@ export default class Home extends Vue {
         this.news = result.data.data;
         console.log(this.news)
     }
-
+    
     mounted() {
         this.getNews()
     }
 }
-    
 </script>

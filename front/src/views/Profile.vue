@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-    <div v-if="!token">
+    <!-- <div v-if="!token">
         <h2>Авторизация</h2>
         <form class="form-horizontal">
             <div class="form-group">
@@ -19,10 +19,10 @@
                 <a href="/register" class="button btn btn-light"><button type="button" class="register">Регистрация</button></a>
             </div>
         </form><br>
-    </div>
-    <div v-else class="profile">
+    </div> -->
+    <div class="profile">
         <h2>Профиль</h2>
-        <form class="form-horizontal">
+        <form class="form-horizontal" method="GET" id="ajax_form" action="">
             <div class="form-group">
                 <label for="inputText" class="col-xs-2 control-label text-start">ФИО: </label>
                 <input type="text" class="form-control col-xs-10" id="inputText" placeholder="Введите ФИО" v-model="form.fio"><br>
@@ -101,27 +101,23 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default class Profile extends Vue {
     token = "";
-    localValue = localStorage.getItem('fio');
+    localFIO = localStorage.getItem('fio');
+    localEmail = localStorage.getItem('email');
+    localPass = localStorage.getItem('password');
+
     user = [];
     response = "";
 
     form = {
-        fio: this.localValue,
-        email: "ich_liebe_dich_nicht@vk.com",
-        password: "987456321",
-    }
-
-    async login() {
-        const result = await this.$store.dispatch("login", this.form);
-        this.token = result.token;
-        console.log(result);
-
-        localStorage.setItem('fio', result.user.fio);
-        // this.$router.go(0);
+        fio: this.localFIO,
+        email: this.localEmail,
+        password: this.localPass,
     }
 
     async save() {
         const result = await this.$store.dispatch("update", this.form);
+        localStorage.setItem('fio', result.user.fio);
+        localStorage.setItem('password', result.user.password);
         console.log(result);
     }
 
@@ -132,13 +128,15 @@ export default class Profile extends Vue {
     async logout() {
         const result = await this.$store.dispatch("logout");
         this.token = "";
-        
+        this.$router.go(0);
+        localStorage.setItem('fio', "");
+        localStorage.setItem('email', "");
+        localStorage.setItem('password', "");
+        window.location.href = '/login';
     }
 
     mounted() {
         this.token = localStorage.token;
-        localStorage.setItem('fio', "");
-        this.localValue="";
     }
 }
 </script>

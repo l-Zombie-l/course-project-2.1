@@ -19,7 +19,7 @@
                 <tr>
                     <td></td>
                     <td>
-                        <router-link class="router-link button btn btn-light" type="button" to="/home/one">Выбрать</router-link>
+                        <router-link class="router-link button btn btn-light" type="button" to="/home/two">Выбрать</router-link>
                     </td>
                 </tr>
                 <tr>

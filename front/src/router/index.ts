@@ -16,6 +16,12 @@ const routes: Array<RouteConfig> = [
         component: () =>
           import('../views/docx/one.vue'),
       },
+      {
+        path: '/home/two',
+        name: "Two",
+        component: () =>
+          import('../views/docx/two.vue'),
+      },
     ],
   },
 
@@ -41,7 +47,11 @@ const routes: Array<RouteConfig> = [
     name: "Profile",
     component: () => import("../views/Profile.vue"),
   },
-
+  {
+    path: "/login",
+    name: "Login",
+    component: () => import("../views/Login.vue"),
+  },
   {
     path: "/one",
     name: "one",

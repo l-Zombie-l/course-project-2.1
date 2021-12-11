@@ -6,17 +6,17 @@
         <table class="table table-secondary table-striped">
             <thead>
                 <tr>
-                    <th scope="col">Автор</th>
-                    <th scope="col">Название</th>
+                    <th scope="col" width="10%">Автор</th>
+                    <th scope="col" width="15%">Название</th>
                     <th scope="col">Содержимое</th>
-                    <th scope="col">Действие</th>
+                    <th scope="col" width="20%">Действие</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="news in news" :key="news.id">
                     <td></td>
                     <td>{{news.name}}</td>
-                    <td>{{news.info}}</td>
+                    <td class='td_info'>{{news.info}}</td>
                     <td><button class="btn btn-light" @click="openNews(id)">Редактирование</button></td>
                 </tr>
             </tbody>
@@ -29,6 +29,19 @@
 .form-group {
     text-align: left;
     padding: 0px 25% 0px 25%;
+}
+
+table {
+    table-layout: fixed;
+    width:100%
+}
+
+td {
+    word-wrap:break-word;
+}
+
+.td_info{
+    text-align: left;
 }
 
 .buttons {
@@ -72,7 +85,7 @@ export default class Home extends Vue {
     async getNews() {
         const result = await axios.get('http://localhost:4100/news')
         this.news = result.data.data;
-        console.log(this.news)
+        console.log(this.news);
     }
 
     mounted() {

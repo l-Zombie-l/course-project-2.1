@@ -26,11 +26,13 @@ export class UsersService {
 
   async getNews() {
     const foundNews = await News.findAll({
-      include: [
-      ]
+      include: []
     });
 
-    return { data: foundNews };
+    return {
+      data:
+        foundNews
+    };
   }
 
   async register(user: IUserCreateDTO) {

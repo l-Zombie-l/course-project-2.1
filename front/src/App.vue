@@ -1,31 +1,42 @@
 <template>
 <div id="app">
-    <div id="nav">
-        <ul>
-            <li><a href="/home" class="text">Главная</a></li>
-            <li><a href="/register" class="text">Регистрация</a></li>
-            <li><a href="/news" class="text">Новости</a></li>
-            <li><a href="/add_news" class="text">Добавить новость</a></li>
-
-            <li style="float:right" ><a href="/profile" class="text">Профиль</a></li>
-        </ul>
+    <div v-if="!token">
+        <div id="nav">
+            <ul>
+                <li><a href="/home" class="text">Главная</a></li>
+                <li><a href="/news" class="text">Новости</a></li>
+                <li><a href="/add_news" class="text">Добавить новость</a></li>
+                <li style="float:right"><a href="/login" class="text">Авторизация</a></li>
+            </ul>
+        </div>
     </div>
-<div  id="page">
-    <router-view/>
-</div>
+    <div v-else>
+        <div id="nav">
+            <ul>
+                <li><a href="/home" class="text">Главная</a></li>
+                <li><a href="/news" class="text">Новости</a></li>
+                <li><a href="/add_news" class="text">Добавить новость</a></li>
+                <li style="float:right"><a href="/profile" class="text">Профиль</a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="page">
+        <router-view />
+    </div>
 </div>
 </template>
 
 <style lang="scss">
-body{    
+body {
     background-image: url("C:/Users/Zombie/Documents/Курсовая 26112021/bunina_2611/front/images/fon1.jpg");
     background-size: 100%;
-    background-attachment: fixed; 
+    background-attachment: fixed;
     background-color: rgb(0, 0, 0);
 }
-a.text:hover{
-     text-decoration: none;
-  color: rgb(177, 3, 3);
+
+a.text:hover {
+    text-decoration: none;
+    color: rgb(177, 3, 3);
 }
 
 ul {
@@ -61,7 +72,7 @@ li a:hover {
     -moz-osx-font-smoothing: grayscale;
     font-size: 19px;
     text-align: center;
-    color: #ffffff;    
+    color: #ffffff;
 }
 
 #nav {
@@ -75,6 +86,26 @@ li a:hover {
     background-color: rgba(50, 50, 50, 0.9);
     // backdrop-filter: blur(5px);
     padding: 1%;
-    margin: 30px; 
+    margin: 30px;
 }
 </style>
+
+<script lang="ts">
+import {
+    Component,
+    Vue
+} from "vue-property-decorator";
+
+import axios from "axios"
+import 'bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
+
+@Component({})
+
+export default class Profile extends Vue {
+    token = "";
+    mounted() {
+        this.token = localStorage.token;
+    }
+}
+</script>
