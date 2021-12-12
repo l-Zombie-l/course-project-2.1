@@ -42,7 +42,7 @@ export default new Vuex.Store({
     },
 
     async updateNews({ state }, params) {
-      const { data } = await instance.put('http://localhost:4100/user/update_news', params);
+      const { data } = await instance.put('http://localhost:4100/user/update_news/'+params);
       return data;
     },
 
@@ -53,6 +53,16 @@ export default new Vuex.Store({
 
     async me({ state }, params) {
       const { data } = await instance.get('http://localhost:4100/me', params);
+      return data;
+    },
+
+    async destroy({ state }, params) {
+      const { data } = await instance.delete('http://localhost:4100/user/delete/'+params);
+      return data;
+    },
+
+    async openNews({ state }, params) {
+      const { data } = await instance.get('http://localhost:4100/user/news/'+params);
       return data;
     },
   },

@@ -1,25 +1,5 @@
 <template>
 <div class="container">
-    <!-- <div v-if="!token">
-        <h2>Авторизация</h2>
-        <form class="form-horizontal">
-            <div class="form-group">
-                <label for="inputEmail" class="col-xs-2 control-label text-start">Адрес email: </label>
-                <input type="email" class="form-control col-xs-10" id="inputEmail" placeholder="Введите email" v-model="form.email"><br>
-
-                <label for="inputPassword" class="col-xs-2 control-label">Пароль: </label>
-                <input type="text" class="form-control col-xs-10" id="inputPassword" placeholder="Введите пароль" v-model="form.password">
-            </div><br>
-        </form>
-
-        <form class="form-horizontal" @submit.prevent="">
-            <div class="buttons">
-                <button type="button" class="button btn btn-light" @click="login()">Вход</button>
-                <p class="sympol">|⁣</p>
-                <a href="/register" class="button btn btn-light"><button type="button" class="register">Регистрация</button></a>
-            </div>
-        </form><br>
-    </div> -->
     <div class="profile">
         <h2>Профиль</h2>
         <form class="form-horizontal" method="GET" id="ajax_form" action="">
@@ -42,8 +22,8 @@
         <form class="form-horizontal" @submit.prevent="">
             <div class="buttons">
                 <button type="button" class="button btn btn-light" @click="save()">Сохранить изменение</button>
-                <p class="sympol">|⁣</p>
-                <button type="button" class="button btn btn-light" @click="deleteUser(user.id)">Удалить аккаунт</button>
+                <p class="sympol">|</p>
+                <button type="button" class="button btn btn-light" @click="destroy()">Удалить аккаунт</button>
             </div>
         </form><br>
     </div>
@@ -121,18 +101,26 @@ export default class Profile extends Vue {
         console.log(result);
     }
 
-    async userDelete(id: any) {
-        alert(`Удаление пользователя id:${id}`);
+    async destroy() {
+        const result = await this.$store.dispatch("me");
+        alert(`Вы удалили свой аккаунт ${result.fio}`);
+        const destroy = await this.$store.dispatch("destroy", result.id);
+        localStorage.setItem('token', "");
+        localStorage.setItem('fio', "");
+        localStorage.setItem('email', "");
+        localStorage.setItem('password', "");
+        window.location.href = '/login';
+        console.log(destroy);
     }
 
     async logout() {
         const result = await this.$store.dispatch("logout");
         this.token = "";
-        this.$router.go(0);
         localStorage.setItem('fio', "");
         localStorage.setItem('email', "");
         localStorage.setItem('password', "");
         window.location.href = '/login';
+        console.log(result);
     }
 
     mounted() {

@@ -17,7 +17,7 @@
                     <td></td>
                     <td>{{news.name}}</td>
                     <td class='td_info'>{{news.info}}</td>
-                    <td><button class="btn btn-light" @click="openNews(id)">Редактирование</button></td>
+                    <td><button class="btn btn-light" @click="openNews(news.id)">Редактирование</button></td>
                 </tr>
             </tbody>
         </table>
@@ -33,14 +33,14 @@
 
 table {
     table-layout: fixed;
-    width:100%
+    width: 100%
 }
 
 td {
-    word-wrap:break-word;
+    word-wrap: break-word;
 }
 
-.td_info{
+.td_info {
     text-align: left;
 }
 
@@ -88,13 +88,21 @@ export default class Home extends Vue {
         console.log(this.news);
     }
 
+    async openNews(id: any) {
+        const result = await this.$store.dispatch("openNews", id);
+        localStorage.setItem('idNews', result.id);        
+        localStorage.setItem('name', result.name);
+        localStorage.setItem('info', result.info);
+        window.location.href = '/add_news';
+
+        console.log(result);
+    }
+
     mounted() {
         this.getNews()
     }
+
     
-    // async update_news() {
-    //     const result = await this.$store.dispatch("update_news", this.form);
-    //     console.log(result);
-    // }
+
 }
 </script>

@@ -82,7 +82,7 @@ export const update = async (ctx: IKoaContext) => {
 export const updateNews = async (ctx: IKoaContext) => {
   const body: INewsCreateDTO = ctx.request.body;
 
-  const result = await usersFactory().updateNews(ctx.user.id, body);
+  const result = await usersFactory().updateNews(ctx.params.id, body);
   ctx.body = result;
 };
 
@@ -93,5 +93,10 @@ export const read = async (ctx: IKoaContext) => {
 
 export const me = async (ctx: IKoaContext) => {
   const result = await usersFactory().read(ctx.user.id);
+  ctx.body = result;
+};
+
+export const newsOne = async (ctx: IKoaContext) => {
+  const result = await usersFactory().newsOne(ctx.params.id);
   ctx.body = result;
 };

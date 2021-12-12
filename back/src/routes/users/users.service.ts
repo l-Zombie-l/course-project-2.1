@@ -130,13 +130,6 @@ export class UsersService {
   }
 
   async destroy(self: User, userId: number) {
-    if (!self.isAdmin) {
-      return {
-        success: false,
-        message: "Недостаточно полномочий.",
-      };
-    }
-
     const foundUser = await User.findByPk(userId);
     if (!foundUser) {
       return {
@@ -145,14 +138,10 @@ export class UsersService {
       };
     }
 
-    if (foundUser.isAdmin) {
-      return {
-        success: false,
-        message: "Удаление администратора запрещено.",
-      };
-    }
     await Hobby.destroy({ where: { userId } });
     await Message.destroy({ where: { userId } });
+    await News.destroy({ where: { userId } });
+    await Token.destroy({ where: { userId } });
     await User.destroy({ where: { id: userId } });
 
     return {
@@ -160,15 +149,6 @@ export class UsersService {
       message: "Пользователь удален.",
     };
   }
-
-  // async getOneNews(self: News, id: number) {
-  //   const foundNews = await News.findOne({ where: { id: self.id } })
-
-  //   return {
-  //     success: true,
-  //     news: foundNews,
-  //   };    
-  // }
 
   async update(id: number, body: IUserUpdateDTO) {
     const foundUser = await User.findByPk(id);
@@ -193,33 +173,32 @@ export class UsersService {
   async read(id: number) {
     const foundUser = await User.findByPk(id);
 
-    if (!foundUser) {
-      return {
-        success: false,
-        message: "пользователь не найден",
-      };
-    }
-
     return foundUser;
   }
 
+  async newsOne(id: number) {
+    const foundNews = await News.findByPk(id);
+
+    return foundNews;
+  }
+
   async updateNews(id: number, body: INewsCreateDTO) {
-    const foundUser = await User.findByPk(id);
+    const foundNews = await News.findByPk(id);
 
     if (body.name) {
-      foundUser.password = body.name
+      foundNews.name = body.name
     }
 
     if (body.info) {
-      foundUser.fio = body.info
+      foundNews.info = body.info
     }
 
-    await foundUser.save()
+    await foundNews.save()
 
     return {
       success: true,
       message: "Успешное редактирование.",
-      user: foundUser
+      user: foundNews
     }
   }
 
