@@ -82,6 +82,7 @@ export default class Login extends Vue {
         const result = await this.$store.dispatch("login", this.form);
         this.token = result.token;
 
+        localStorage.setItem('id', result.user.id);
         localStorage.setItem('fio', result.user.fio);
         localStorage.setItem('email', result.user.email);
         localStorage.setItem('password', this.form.password);

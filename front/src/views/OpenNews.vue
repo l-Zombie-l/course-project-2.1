@@ -1,20 +1,15 @@
 <template>
-<div class="add">
-    <h1>Добавить новость</h1>
+<div class="edit">
+    <h1>Запись на стене новостей</h1>
     <form class="form-horizontal">
         <div class="form-group">
             <label for="inputName" class="col-xs-2 control-label">Название: </label>
-            <input type="text" class="form-control col-xs-10" id="inputName" placeholder="Введите название новости" v-model="form.name"> <br>
+            <input readonly type="text" class="form-control col-xs-10" id="inputName" placeholder="Введите название новости" v-model="form.name"> <br>
 
             <label for="inputNew" class="col-xs-2 control-label">Содержимое: </label>
-            <textarea type="text" class="form-control col-xs-10 news" id="inputNew" placeholder="Введите содержимое новости" v-model="form.info"></textarea>
+            <textarea readonly type="text" class="form-control col-xs-10 news" id="inputNew" placeholder="Введите содержимое новости" v-model="form.info"></textarea>
         </div><br>
-    </form>
-    <form class="form-horizontal" @submit.prevent="">
-        <div class="buttons">
-            <button type="button" class="button btn btn-light" @click="addNews()">Добавить новость</button>
-        </div>
-    </form><br>
+    </form>   
 </div>
 </template>
 
@@ -44,7 +39,7 @@
 }
 
 .news {
-    height: 150px;
+    height: 300px;
 }
 </style>
 
@@ -75,11 +70,6 @@ export default class Home extends Vue {
     form = {
         name: this.localName,
         info: this.localInfo
-    }
-    
-    async addNews() {
-        const result = await this.$store.dispatch("addNews", this.form);
-        window.location.href = '/news';
     }   
 
     mounted() {

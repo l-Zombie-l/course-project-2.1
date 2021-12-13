@@ -38,6 +38,18 @@ const routes: Array<RouteConfig> = [
       import("../views/AddNews.vue"),
   },
   {
+    path: "/edit_news",
+    name: "EditNews",
+    component: () =>
+      import("../views/EditNews.vue"),
+  },
+  {
+    path: "/open_news",
+    name: "OpenNews",
+    component: () =>
+      import("../views/OpenNews.vue"),
+  },
+  {
     path: "/news",
     name: "news",  
     component: () => import("../views/News.vue"),

@@ -1,6 +1,6 @@
 <template>
-<div class="add">
-    <h1>Добавить новость</h1>
+<div class="edit">
+    <h1>Изменить новость</h1>
     <form class="form-horizontal">
         <div class="form-group">
             <label for="inputName" class="col-xs-2 control-label">Название: </label>
@@ -12,7 +12,7 @@
     </form>
     <form class="form-horizontal" @submit.prevent="">
         <div class="buttons">
-            <button type="button" class="button btn btn-light" @click="addNews()">Добавить новость</button>
+            <button type="button" class="button btn btn-light" @click="updateNews()">Изменить новость</button>
         </div>
     </form><br>
 </div>
@@ -76,11 +76,11 @@ export default class Home extends Vue {
         name: this.localName,
         info: this.localInfo
     }
-    
-    async addNews() {
-        const result = await this.$store.dispatch("addNews", this.form);
+
+    async updateNews() {
+        const result = await instance.put('http://localhost:4100/user/update_news/' + this.localId, this.form);
         window.location.href = '/news';
-    }   
+    }
 
     mounted() {
         this.name = localStorage.name;

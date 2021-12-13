@@ -6,18 +6,17 @@
         <table class="table table-secondary table-striped">
             <thead>
                 <tr>
-                    <th scope="col" width="10%">Автор</th>
-                    <th scope="col" width="15%">Название</th>
+                    <th scope="col" width="20%">Название</th>
                     <th scope="col">Содержимое</th>
                     <th scope="col" width="20%">Действие</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="news in news" :key="news.id">
-                    <td></td>
+                <tr v-for="news in news" :key="news.id" @click="openNews(news.id)">
                     <td>{{news.name}}</td>
                     <td class='td_info'>{{news.info}}</td>
-                    <td><button class="btn btn-light" @click="openNews(news.id)">Редактирование</button></td>
+                    <td v-if="localIdUser == news.userId"><button class="btn btn-light button" @click="editNews(news.id)">Редактирование</button></td>
+                    <td v-else></td>
                 </tr>
             </tbody>
         </table>
@@ -79,21 +78,32 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 })
 export default class Home extends Vue {
     news: any[] = [];
+    localIdUser = localStorage.getItem('id');
 
     response = "";
 
     async getNews() {
-        const result = await axios.get('http://localhost:4100/news')
+        const result = await axios.get('http://localhost:4100/news');
         this.news = result.data.data;
         console.log(this.news);
     }
 
-    async openNews(id: any) {
+    async editNews(id: any) {
         const result = await this.$store.dispatch("openNews", id);
-        localStorage.setItem('idNews', result.id);        
+        localStorage.setItem('idNews', result.id);
         localStorage.setItem('name', result.name);
         localStorage.setItem('info', result.info);
-        window.location.href = '/add_news';
+        window.location.href = '/edit_news';
+
+        console.log(result);
+    }
+
+      async openNews(id: any) {
+        const result = await this.$store.dispatch("openNews", id);
+        localStorage.setItem('idNews', result.id);
+        localStorage.setItem('name', result.name);
+        localStorage.setItem('info', result.info);
+        window.location.href = '/open_news';
 
         console.log(result);
     }
@@ -101,8 +111,6 @@ export default class Home extends Vue {
     mounted() {
         this.getNews()
     }
-
-    
 
 }
 </script>

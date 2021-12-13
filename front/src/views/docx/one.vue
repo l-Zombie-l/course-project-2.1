@@ -11,7 +11,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="news in news" :key="news.id">
+                <tr v-for="news in news" :key="news.id" >
                     <td></td>
                     <td>{{news.name}}</td>
                     <td>
