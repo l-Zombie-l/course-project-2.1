@@ -21,16 +21,6 @@ export class IUserLoginDTO {
     password: string;
 }
 
-export class IMessageDTO {
-    @IsEmail()
-    email: string;
-
-    @IsDefined()
-    info: string;
-
-    userId: number;
-}
-
 export class INewsCreateDTO {
     @IsDefined()
     name: string;

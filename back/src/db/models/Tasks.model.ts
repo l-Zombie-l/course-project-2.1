@@ -13,9 +13,15 @@ import User from "./User.model";
 @Table({
   timestamps: true,
 })
-class Message extends Model {
+class Tasks extends Model {
+  @Column(DataType.STRING)
+  name: string;
+
   @Column(DataType.STRING)
   info: string;
+
+  @Column(DataType.BOOLEAN)
+  isFinish: boolean;
 
   @ForeignKey(() => User)
   @AllowNull(false)
@@ -26,4 +32,4 @@ class Message extends Model {
   user: User;
 }
 
-export default Message;
+export default Tasks;

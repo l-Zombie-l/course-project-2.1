@@ -109,17 +109,20 @@ export default class Profile extends Vue {
         localStorage.setItem('fio', "");
         localStorage.setItem('email', "");
         localStorage.setItem('password', "");
+         localStorage.setItem('id', "");
         window.location.href = '/login';
         console.log(destroy);
     }
 
     async logout() {
         const result = await this.$store.dispatch("logout");
-        this.token = "";
-        localStorage.setItem('fio', "");
-        localStorage.setItem('email', "");
-        localStorage.setItem('password', "");
+        // this.token = "";
+        // localStorage.setItem('fio', "");
+        // localStorage.setItem('email', "");
+        // localStorage.setItem('password', "");
+        //  localStorage.setItem('id', "");
         window.location.href = '/login';
+        localStorage.clear();
         console.log(result);
     }
 

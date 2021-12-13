@@ -2,7 +2,7 @@ import { IKoaContext, IKoaTokenContext} from "@/interfaces";
 import { usersFactory } from "@/routes/users/users.service";
 import { ServerValidationError } from "@/utils/errors";
 import { transformAndValidate } from "class-transformer-validator";
-import { IMessageDTO, INewsCreateDTO, IUserCreateDTO, IUserLoginDTO, IUserUpdateDTO, IGetNewsDTO } from "./dto";
+import { INewsCreateDTO, IUserCreateDTO, IUserLoginDTO, IUserUpdateDTO, IGetNewsDTO } from "./dto";
 
 export const list = async (ctx: IKoaContext) => {
   const usersList = await usersFactory().getList();
@@ -35,18 +35,6 @@ export const login = async (ctx: IKoaContext) => {
     }
   );
   const result = await usersFactory().login(body);
-  ctx.body = result;
-};
-
-export const createMessages = async (ctx: IKoaContext) => {
-  const body: IMessageDTO = ctx.request.body;
-
-  await transformAndValidate(IMessageDTO, body).catch(
-    (err: ServerValidationError) => {
-      throw new ServerValidationError(err.errorCode, err.message)
-    }
-  );
-  const result = await usersFactory().addMessage(body);
   ctx.body = result;
 };
 

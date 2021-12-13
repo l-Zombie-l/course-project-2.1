@@ -1,7 +1,5 @@
 import User from "@/db/models/User.model";
-import Message from "@/db/models/Message.model";
-import Hobby from "@/db/models/Hobby.model";
-import { IMessageDTO, INewsCreateDTO, IUserCreateDTO, IUserLoginDTO, IUserUpdateDTO } from "./dto";
+import { INewsCreateDTO, IUserCreateDTO, IUserLoginDTO, IUserUpdateDTO } from "./dto";
 import moment from "moment";
 import { Op } from "sequelize";
 import { genSaltSync, hashSync } from "bcrypt";
@@ -15,8 +13,6 @@ export class UsersService {
   async getList() {
     const foundUsers = await User.findAll({
       include: [
-        { model: Message },
-        { model: Hobby },
         { model: News },
       ]
     });
@@ -137,9 +133,7 @@ export class UsersService {
         message: "Пользователь не найден.",
       };
     }
-
-    await Hobby.destroy({ where: { userId } });
-    await Message.destroy({ where: { userId } });
+   
     await News.destroy({ where: { userId } });
     await Token.destroy({ where: { userId } });
     await User.destroy({ where: { id: userId } });
@@ -200,50 +194,7 @@ export class UsersService {
       message: "Успешное редактирование.",
       user: foundNews
     }
-  }
-
-  async addMessage(message: IMessageDTO) {
-    const foundUsers = await User.findOne({ where: { email: message.email } })
-    if (foundUsers) {
-      const MESSAGE_LIMIT = 3;
-      const MESSAGE_DELAY = 30;
-      const where: any = {};
-
-      where.userId = foundUsers.id;
-      where.createdAt = {
-        [Op.gte]: moment()
-          .subtract(MESSAGE_DELAY, "seconds")
-          .format("YYYY-MM-DD HH:mm:ss"),
-      };
-
-      const messageCount = await Message.count({ where });
-
-      if (messageCount >= MESSAGE_LIMIT) {
-        return {
-          success: false,
-          message: `За ${MESSAGE_DELAY} секунд отправлено ${messageCount} сообщений. Лимит (${MESSAGE_LIMIT}!)`,
-        };
-      }
-
-      const result = new Message();
-
-      result.userId = foundUsers.id
-      result.info = message.info
-
-      await result.save();
-
-      return {
-        success: true,
-        message: "Успешно добавлено.",
-        data: result
-      }
-    }
-    return {
-      success: false,
-      message: 'Email отсутствует в базе.'
-    };
-  }
-
+  } 
 
   async addNews(userId: number, news: INewsCreateDTO) {
     const NEW_LIMIT = 3;

@@ -11,12 +11,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="news in news" :key="news.id" >
+                <tr v-for="news in news" :key="news.id">
                     <td></td>
                     <td>{{news.name}}</td>
-                    <td>
-                        <p class="cuttedText">{{news.info}}</p>
-                    </td>
+                    <td>{{news.info}}</td>
                 </tr>
             </tbody>
         </table>
@@ -30,13 +28,6 @@
     color: #333;
 }
 
-.cuttedText {
-    display: block;
-    width: 5px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
 </style>
 
 <script lang="ts">
@@ -65,5 +56,4 @@ export default class Home extends Vue {
         this.getNews()
     }
 }
-    
 </script>

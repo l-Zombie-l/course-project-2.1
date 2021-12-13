@@ -8,13 +8,13 @@
                 <tr>
                     <th scope="col" width="20%">Название</th>
                     <th scope="col">Содержимое</th>
-                    <th scope="col" width="20%">Действие</th>
+                    <th scope="col" width="20%">Действие</th>                   
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="news in news" :key="news.id" @click="openNews(news.id)">
-                    <td>{{news.name}}</td>
-                    <td class='td_info'>{{news.info}}</td>
+                <tr v-for="news in news" :key="news.id">
+                    <td @click="openNews(news.id)">{{news.name}}</td>
+                    <td class='td_info' @click="openNews(news.id)"><p class="cuttedText">{{news.info}}</p></td>
                     <td v-if="localIdUser == news.userId"><button class="btn btn-light button" @click="editNews(news.id)">Редактирование</button></td>
                     <td v-else></td>
                 </tr>
@@ -60,6 +60,14 @@ td {
     font-size: 19px;
     text-align: center;
     color: #333;
+}
+
+.cuttedText {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 </style>
 

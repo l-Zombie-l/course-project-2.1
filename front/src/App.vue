@@ -5,7 +5,6 @@
             <ul>
                 <li><a href="/home" class="text">Главная</a></li>
                 <li><a href="/news" class="text">Новости</a></li>
-                <li><a href="/add_news" class="text">Добавить новость</a></li>
                 <li style="float:right"><a href="/login" class="text">Авторизация</a></li>
             </ul>
         </div>

@@ -9,8 +9,6 @@ import {
   HasMany,
   IsEmail,
 } from "sequelize-typescript";
-import Hobby from "./Hobby.model";
-import Message from "./Message.model";
 import New from "./News.model";
 
 @Table({
@@ -32,12 +30,6 @@ class User extends Model {
 
   @Column(DataType.BOOLEAN)
   isAdmin: boolean;
-
-  @HasMany(() => Message, { foreignKey: "userId", onDelete: "RESTRICT" })
-  message: Message[];
-
-  @HasMany(() => Hobby, { foreignKey: "userId", onDelete: "RESTRICT" })
-  hobby: Hobby[];
 
   @HasMany(() => New, { foreignKey: "userId", onDelete: "RESTRICT" })
   news: New[];
