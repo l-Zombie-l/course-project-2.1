@@ -5,13 +5,13 @@
         <form class="form-horizontal" method="GET" id="ajax_form" action="">
             <div class="form-group">
                 <label for="inputText" class="col-xs-2 control-label text-start">ФИО: </label>
-                <input type="text" class="form-control col-xs-10" id="inputText" placeholder="Введите ФИО" v-model="form.fio"><br>
+                <input type="text" class="form-control col-xs-10" id="inputText" placeholder="Введите ФИО" title="Введите фамилию, иммя и отчество." v-model="form.fio"><br>
 
                 <label for="inputEmail" class="col-xs-2 control-label text-start">Адрес email: </label>
                 <input readonly type="email" class="form-control col-xs-10" id="inputEmail" placeholder="Введите email" v-model="form.email"><br>
 
                 <label for="inputPassword" class="col-xs-2 control-label">Пароль: </label>
-                <input type="text" class="form-control col-xs-10" id="inputPassword" placeholder="Введите пароль" v-model="form.password">
+                <input type="text" class="form-control col-xs-10" id="inputPassword" placeholder="Введите пароль" title="Введите не менее шести символов и не более двадцати символов." v-model="form.password">
             </div><br>
         </form>
         <form class="form-horizontal" @submit.prevent="">
@@ -115,12 +115,7 @@ export default class Profile extends Vue {
     }
 
     async logout() {
-        const result = await this.$store.dispatch("logout");
-        // this.token = "";
-        // localStorage.setItem('fio', "");
-        // localStorage.setItem('email', "");
-        // localStorage.setItem('password', "");
-        //  localStorage.setItem('id', "");
+        const result = await this.$store.dispatch("logout");       
         window.location.href = '/login';
         localStorage.clear();
         console.log(result);

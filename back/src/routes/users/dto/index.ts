@@ -50,5 +50,30 @@ export class IUserUpdateDTO {
     password: string;
 }
 
+export class IGetTasksDTO {
+
+    @IsDefined()
+    name: string;
+
+    @IsDefined()
+    info: string;
+
+    isFinish: boolean;
+
+    userId: number;
+}
+
+export class IAddTasksDTO {
+
+    @IsDefined()
+    name: string;
+
+    @IsDefined()
+    info: string;
+
+    @IsDefined()
+    userId: number;
+}
+
 export class ICreateIGetNewsDTO extends IGetNewsDTO {}
 

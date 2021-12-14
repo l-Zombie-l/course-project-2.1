@@ -3,23 +3,47 @@
     <!-- <img alt="Vue logo" src="../assets/logo.png" /> -->
     <h1>Новости</h1>
     <div class="container">
-        <table class="table table-secondary table-striped">
+        <div v-if="!token">
+             <table class="table table-secondary table-striped">
             <thead>
                 <tr>
                     <th scope="col" width="20%">Название</th>
                     <th scope="col">Содержимое</th>
-                    <th scope="col" width="20%">Действие</th>                   
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="news in news" :key="news.id">
                     <td @click="openNews(news.id)">{{news.name}}</td>
-                    <td class='td_info' @click="openNews(news.id)"><p class="cuttedText">{{news.info}}</p></td>
-                    <td v-if="localIdUser == news.userId"><button class="btn btn-light button" @click="editNews(news.id)">Редактирование</button></td>
-                    <td v-else></td>
+                    <td class='td_info' @click="openNews(news.id)">
+                        <p class="cuttedText">{{news.info}}</p>
+                    </td>                   
                 </tr>
             </tbody>
         </table>
+        </div>
+        <div v-else>
+            <a href="/add_news" class="button btn btn-light" type="button">Добавить новость</a><br><br>
+
+            <table class="table table-secondary table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col" width="20%">Название</th>
+                        <th scope="col">Содержимое</th>
+                        <th scope="col" width="20%">Действие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="news in news" :key="news.id">
+                        <td @click="openNews(news.id)">{{news.name}}</td>
+                        <td class='td_info' @click="openNews(news.id)">
+                            <p class="cuttedText">{{news.info}}</p>
+                        </td>
+                        <td v-if="localIdUser == news.userId"><button class="btn btn-light button" @click="editNews(news.id)">Редактирование</button></td>
+                        <td v-else></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>       
     </div>
 </div>
 </template>
@@ -88,6 +112,7 @@ export default class Home extends Vue {
     news: any[] = [];
     localIdUser = localStorage.getItem('id');
 
+    token = "";
     response = "";
 
     async getNews() {
@@ -106,7 +131,7 @@ export default class Home extends Vue {
         console.log(result);
     }
 
-      async openNews(id: any) {
+    async openNews(id: any) {
         const result = await this.$store.dispatch("openNews", id);
         localStorage.setItem('idNews', result.id);
         localStorage.setItem('name', result.name);
@@ -117,7 +142,8 @@ export default class Home extends Vue {
     }
 
     mounted() {
-        this.getNews()
+        this.getNews();
+        this.token = localStorage.token;
     }
 
 }

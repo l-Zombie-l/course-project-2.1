@@ -35,24 +35,29 @@ const routes: Array<RouteConfig> = [
     path: "/add_news",
     name: "AddNews",
     component: () =>
-      import("../views/AddNews.vue"),
+      import("../views/news/AddNews.vue"),
   },
   {
     path: "/edit_news",
     name: "EditNews",
     component: () =>
-      import("../views/EditNews.vue"),
+      import("../views/news/EditNews.vue"),
   },
   {
     path: "/open_news",
     name: "OpenNews",
     component: () =>
-      import("../views/OpenNews.vue"),
+      import("../views/news/OpenNews.vue"),
   },
   {
     path: "/news",
     name: "news",  
-    component: () => import("../views/News.vue"),
+    component: () => import("../views/news/News.vue"),
+  },
+  {
+    path: "/add_task",
+    name: "add_task",
+    component: () => import("../views/AddTask.vue"),
   },
   {
     path: "/profile",
@@ -63,12 +68,7 @@ const routes: Array<RouteConfig> = [
     path: "/login",
     name: "Login",
     component: () => import("../views/Login.vue"),
-  },
-  {
-    path: "/one",
-    name: "one",
-    component: () => import("../views/docx/one.vue"),
-  },
+  },  
 ];
 
 const router = new VueRouter({

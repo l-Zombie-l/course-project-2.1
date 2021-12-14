@@ -9,7 +9,6 @@ export interface IKoaContext extends Context {
 
 export interface IUserContext {
   id: number;
-  email: string;
 }
 
 export interface INewsContext extends Context {

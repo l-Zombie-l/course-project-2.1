@@ -4,10 +4,10 @@
     <form class="form-horizontal">
         <div class="form-group">
             <label for="inputEmail" class="col-xs-2 control-label text-start">Адрес email: </label>
-            <input type="email" class="form-control col-xs-10" id="inputEmail" placeholder="Введите email" v-model="form.email"><br>
+            <input type="email" class="form-control col-xs-10" id="inputEmail" placeholder="Введите email" v-model="form.email" title="Ваш email."><br>
 
             <label for="inputPassword" class="col-xs-2 control-label">Пароль: </label>
-            <input type="text" class="form-control col-xs-10" id="inputPassword" placeholder="Введите пароль" v-model="form.password">
+            <input type="text" class="form-control col-xs-10" id="inputPassword" placeholder="Введите пароль" title="Введите не менее шести символов и не более двадцати символов." v-model="form.password">
         </div><br>
     </form>
 
@@ -18,7 +18,6 @@
             <a href="/register" class="button btn btn-light"><button type="button" class="register">Регистрация</button></a>
         </div>
     </form><br>
-    <!-- {{response}} -->
 </div>
 </template>
 
@@ -67,6 +66,7 @@ import {
 import axios from "axios"
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
+
 @Component({
     components: {},
 })
@@ -79,16 +79,21 @@ export default class Login extends Vue {
     user = [];
 
     async login() {
-        const result = await this.$store.dispatch("login", this.form);
-        this.token = result.token;
+        try {
+            const result = await this.$store.dispatch("login", this.form);
+            this.token = result.token;
 
-        localStorage.setItem('id', result.user.id);
-        localStorage.setItem('fio', result.user.fio);
-        localStorage.setItem('email', result.user.email);
-        localStorage.setItem('password', this.form.password);
+            localStorage.setItem('id', result.user.id);
+            localStorage.setItem('fio', result.user.fio);
+            localStorage.setItem('email', result.user.email);
+            localStorage.setItem('password', this.form.password);
 
-        console.log(result);
-        window.location.href = '/home';
+            console.log(result);
+            window.location.href = '/home';
+        } catch {
+            alert("Ошибка в логине или пароле.")
+        }
+
     }
 }
 </script>

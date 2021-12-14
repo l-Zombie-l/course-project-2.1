@@ -1,8 +1,11 @@
 <template>
 <div class="add">
-    <h1>Добавить новость</h1>
+    <h1>Добавить задачу</h1>
     <form class="form-horizontal">
         <div class="form-group">
+            <label for="inputId" class="col-xs-2 control-label">Сотрудник: </label>
+            <input type="text" class="form-control col-xs-10" id="inputId" placeholder="Введите id сотрудника" v-model="form.userId"> <br>
+
             <label for="inputName" class="col-xs-2 control-label">Название: </label>
             <input type="text" class="form-control col-xs-10" id="inputName" placeholder="Введите название новости" v-model="form.name"> <br>
 
@@ -12,7 +15,7 @@
     </form>
     <form class="form-horizontal" @submit.prevent="">
         <div class="buttons">
-            <button type="button" class="button btn btn-light" @click="addNews()">Добавить новость</button>
+            <button type="button" class="button btn btn-light" @click="addTask()">Добавить новость</button>
         </div>
     </form><br>
 </div>
@@ -44,7 +47,7 @@
 }
 
 .news {
-    height: 150px;
+    height: 300px;
 }
 </style>
 
@@ -58,39 +61,20 @@ import axios from "axios"
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-const instance = axios.create({
-    baseURL: process.env.VUE_APP_SERVER_HOST,
-});
-instance.defaults.headers.common["Authorization"] = `Bearer ${localStorage.token}`;
-
 @Component({
     components: {},
 })
-export default class Home extends Vue {
-    name = "";
-    localName = localStorage.getItem('name');
-    localInfo = localStorage.getItem('info');
-    localId = localStorage.getItem('idNews');
-
+export default class Home extends Vue {   
     form = {
-        name: this.localName,
-        info: this.localInfo
+        userId: "1",
+        name: "test",
+        info: "test"
     }
-    
-    async addNews() {
-        const result = await this.$store.dispatch("addNews", this.form);
-        window.location.href = '/news';
+
+    async addTask() {
+        const result = await axios.post('http://localhost:4100/add_task', this.form)
+        console.log(result.data);
+        // window.location.href = '/news';        
     }   
-
-    mounted() {
-        this.name = localStorage.name;
-    }
-
-    created() {
-        localStorage.setItem('idNews', "");
-        localStorage.setItem('name', "");
-        localStorage.setItem('info', "");
-    }
-
 }
 </script>

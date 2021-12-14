@@ -4,13 +4,13 @@
     <form class="form-horizontal">
         <div class="form-group">
             <label for="inputText" class="col-xs-2 control-label text-start">ФИО: </label>
-            <input type="text" class="form-control col-xs-10" id="inputText" placeholder="Введите ФИО" v-model="form.fio"><br>
+            <input type="text" class="form-control col-xs-10" id="inputText" placeholder="Введите ФИО" title="Введите фамилию, иммя и отчество." v-model="form.fio"><br>
 
             <label for="inputEmail" class="col-xs-2 control-label text-start">Адрес email: </label>
-            <input type="email" class="form-control col-xs-10" id="inputEmail" placeholder="Введите email" v-model="form.email"><br>
+            <input type="email" class="form-control col-xs-10" id="inputEmail" placeholder="Введите email" title="Ваш email." v-model="form.email"><br>
 
             <label for="inputPassword" class="col-xs-2 control-label">Пароль: </label>
-            <input type="password" class="form-control col-xs-10" id="inputPassword" placeholder="Введите пароль" v-model="form.password">
+            <input type="password" class="form-control col-xs-10" id="inputPassword" placeholder="Введите пароль" title="Введите не менее шести символов и не более двадцати символов." v-model="form.password">
         </div><br>
     </form>
 
@@ -70,6 +70,7 @@ export default class Home extends Vue {
     
     async register() {
         const result = await axios.post('http://localhost:4100/register', this.form);
+        window.location.href = '/home';
         console.log(result);
     }
 

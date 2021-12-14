@@ -50,9 +50,19 @@ export default new Vuex.Store({
       const { data } = await instance.post('http://localhost:4100/user/add_news', params);
       return data;
     },
-
+  
     async me({ state }, params) {
       const { data } = await instance.get('http://localhost:4100/me', params);
+      return data;
+    },
+
+    async listUsers({ state }, params) {
+      const { data } = await instance.get('http://localhost:4100/users', params);
+      return data;
+    },
+
+    async getTasks({ state }, params) {
+      const { data } = await instance.get('http://localhost:4100/user/tasks', params);
       return data;
     },
 

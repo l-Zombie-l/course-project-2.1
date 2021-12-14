@@ -1,5 +1,5 @@
 import User from "@/db/models/User.model";
-import { INewsCreateDTO, IUserCreateDTO, IUserLoginDTO, IUserUpdateDTO } from "./dto";
+import { IAddTasksDTO, INewsCreateDTO, IUserCreateDTO, IUserLoginDTO, IUserUpdateDTO } from "./dto";
 import moment from "moment";
 import { Op } from "sequelize";
 import { genSaltSync, hashSync } from "bcrypt";
@@ -7,6 +7,7 @@ import Token from "@/db/models/Token.model";
 import { compareSync } from "bcrypt";
 import News from "@/db/models/News.model";
 import { sign } from "jsonwebtoken"
+import Tasks from "@/db/models/Tasks.model";
 
 export class UsersService {
 
@@ -28,6 +29,17 @@ export class UsersService {
     return {
       data:
         foundNews
+    };
+  }
+
+  async getTasks() {
+    const foundTasks = await Tasks.findAll({
+      include: []
+    });
+
+    return {
+      data:
+        foundTasks
     };
   }
 
@@ -166,8 +178,15 @@ export class UsersService {
 
   async read(id: number) {
     const foundUser = await User.findByPk(id);
-
+    
     return foundUser;
+  }
+  
+  async tasksList(id: number) {
+    const foundUser = await User.findByPk(id);
+    const foundTasks = await Tasks.findAll({ where: { userId: foundUser.id } })
+
+    return foundTasks;
   }
 
   async newsOne(id: number) {
@@ -221,6 +240,40 @@ export class UsersService {
     result.userId = userId
     result.name = news.name
     result.info = news.info
+
+    await result.save();
+
+    return {
+      success: true,
+      message: "Успешно добавлено.",
+      data: result
+    };
+  }
+
+  async addTask(task: IAddTasksDTO) {
+    const NEW_LIMIT = 3;
+    const NEW_DELAY = 60;
+    const where: any = {};
+
+    where.createdAt = {
+      [Op.gte]: moment()
+        .subtract(NEW_DELAY, "seconds")
+        .format("YYYY-MM-DD HH:mm:ss"),
+    };
+
+    const newCount = await Tasks.count({ where });
+
+    if (newCount >= NEW_LIMIT) {
+      return {
+        success: false,
+        message: `За ${NEW_DELAY} секунд отправлено ${newCount} новостей. Лимит (${NEW_LIMIT}!)`,
+      };
+    }
+
+    const result = new Tasks();
+    result.userId = task.userId
+    result.name = task.name
+    result.info = task.info
 
     await result.save();
 
