@@ -18,15 +18,17 @@ export class IUserLoginDTO {
     email: string;
 
     @IsNotEmpty()
+    @Length(6, 20, {})
     password: string;
 }
 
 export class INewsCreateDTO {
+    @Length(6, 50, {})
     @IsDefined()
     name: string;
 
     @IsDefined()
-    // @Length(6,20,{})
+    @Length(6,10000,{})
     info: string;
 }
 
@@ -42,7 +44,7 @@ export class IGetNewsDTO {
 }
 
 export class IUserUpdateDTO {
-    @Length(6, 100, {})
+    @Length(6, 50, {})
     fio: string;
 
     @IsDefined()
@@ -51,7 +53,6 @@ export class IUserUpdateDTO {
 }
 
 export class IGetTasksDTO {
-
     @IsDefined()
     name: string;
 
@@ -64,10 +65,11 @@ export class IGetTasksDTO {
 }
 
 export class IAddTasksDTO {
-
+    @Length(6, 50, {})
     @IsDefined()
     name: string;
-
+        
+    @Length(6, 10000, {})
     @IsDefined()
     info: string;
 
