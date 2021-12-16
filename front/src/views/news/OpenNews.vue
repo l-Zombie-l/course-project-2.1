@@ -4,10 +4,10 @@
     <form class="form-horizontal">
         <div class="form-group">
             <label for="inputName" class="col-xs-2 control-label">Название: </label>
-            <input readonly type="text" class="form-control col-xs-10" id="inputName" placeholder="Введите название новости" v-model="form.name"> <br>
+            <input type="text" maxlength="50" minlength="6" class="form-control col-xs-10" id="inputName" placeholder="Введите название новости"  v-model="form.name" title="Введите название новости, больше шести символов."> <br>
 
             <label for="inputNew" class="col-xs-2 control-label">Содержимое: </label>
-            <textarea readonly type="text" class="form-control col-xs-10 news" id="inputNew" placeholder="Введите содержимое новости" v-model="form.info"></textarea>
+            <textarea type="text" minlength="6" class="form-control col-xs-10 news" id="inputNew" placeholder="Введите содержимое новости" v-model="form.info" title="Введите содержимое новости, больше шести символов."></textarea>
         </div><br>
     </form>   
 </div>

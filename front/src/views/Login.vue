@@ -7,7 +7,7 @@
             <input type="email" class="form-control col-xs-10" id="inputEmail" placeholder="Введите email" v-model="form.email" title="Ваш email."><br>
 
             <label for="inputPassword" class="col-xs-2 control-label">Пароль: </label>
-            <input type="text" class="form-control col-xs-10" id="inputPassword" placeholder="Введите пароль" title="Введите не менее шести символов и не более двадцати символов." v-model="form.password">
+            <input type="text" maxlength="20" minlength="6" class="form-control col-xs-10" id="inputPassword" placeholder="Введите пароль" title="Введите не менее шести символов и не более двадцати символов." v-model="form.password">
         </div><br>
     </form>
 
@@ -93,7 +93,6 @@ export default class Login extends Vue {
         } catch {
             alert("Ошибка в логине или пароле.")
         }
-
     }
 }
 </script>

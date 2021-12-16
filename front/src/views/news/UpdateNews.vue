@@ -4,10 +4,10 @@
     <form class="form-horizontal">
         <div class="form-group">
             <label for="inputName" class="col-xs-2 control-label">Название: </label>
-            <input type="text" class="form-control col-xs-10" id="inputName" placeholder="Введите название статьи" v-model="this.name"> <br>
+            <input type="text" maxlength="50" minlength="6" class="form-control col-xs-10" id="inputName" placeholder="Введите название новости"  v-model="this.name" title="Введите название новости, больше шести символов."> <br>
 
             <label for="inputNew" class="col-xs-2 control-label">Содержимое: </label>
-            <textarea type="text" class="form-control col-xs-10 news" id="inputNew" placeholder="Введите содержимое статьи" v-model="form.info"></textarea>
+            <textarea type="text" minlength="6" class="form-control col-xs-10 news" id="inputNew" placeholder="Введите содержимое новости" v-model="form.info" title="Введите содержимое новости, больше шести символов."></textarea>
         </div><br>
     </form>
     <form class="form-horizontal" @submit.prevent="">
@@ -70,10 +70,16 @@ export default class Home extends Vue {
     response = "Ожидание действий пользователя.";
 
     async save() {
-        const result = await this.$store.dispatch("updateNews", this.form);
+         try{
+   const result = await this.$store.dispatch("updateNews", this.form);
         this.name = JSON.stringify(result.data.name);
 
         console.log(result);
+        }
+        catch{
+            alert("Ошибка сохранения, проверьте введенные данные.")
+        }
+     
     }
 }
 </script>

@@ -1,5 +1,6 @@
 <template>
 <div id="app">
+    <meta name="description" content="Описание страницы">
     <div v-if="!token">
         <div id="nav">
             <ul>

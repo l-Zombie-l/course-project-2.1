@@ -30,7 +30,7 @@
             </table>
         </div>
         <div v-else>
-             <table class="table table-secondary table-striped">
+            <table class="table table-secondary table-striped">
                 <thead>
                     <tr>
                         <th scope="col">Название документа</th>
@@ -59,7 +59,10 @@
                 </tbody>
             </table>
         </div>
-        <router-view />
+        <div id="element-to-print">
+            <router-view />
+        </div>
+        <button @click="generatePDF()">Сохранить в PDF</button>
     </div>
 </div>
 </template>
@@ -98,6 +101,7 @@ import {
 import axios from "axios"
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import html2Pdf from 'js-html2pdf'
 
 @Component({
     components: {},
@@ -106,6 +110,10 @@ export default class Home extends Vue {
     token = "";
     mounted() {
         this.token = localStorage.token;
+    }
+    generatePDF() {
+        const element = document.getElementById('invoice');
+        html2Pdf().from(element).save();
     }
 }
 </script>

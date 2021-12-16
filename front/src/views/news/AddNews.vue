@@ -4,10 +4,11 @@
     <form class="form-horizontal">
         <div class="form-group">
             <label for="inputName" class="col-xs-2 control-label">Название: </label>
-            <input type="text" class="form-control col-xs-10" id="inputName" placeholder="Введите название новости" v-model="form.name"  title="Всплывающая подсказка"> <br>
+            <input type="text" maxlength="50" minlength="6" class="form-control col-xs-10" id="inputName" placeholder="Введите название новости" v-model="form.name" title="Введите название новости, больше шести символов."> <br>
 
             <label for="inputNew" class="col-xs-2 control-label">Содержимое: </label>
-            <textarea type="text" class="form-control col-xs-10 news" id="inputNew" placeholder="Введите содержимое новости" v-model="form.info"></textarea>
+            <textarea type="text" minlength="6" class="form-control col-xs-10 news" id="inputNew" placeholder="Введите содержимое новости" v-model="form.info"></textarea>
+
         </div><br>
     </form>
     <form class="form-horizontal" @submit.prevent="">
@@ -58,24 +59,22 @@ import axios from "axios"
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-
 @Component({
     components: {},
 })
-export default class Home extends Vue {  
+export default class Home extends Vue {
     form = {
         name: "",
         info: ""
     }
-    
+
     async addNews() {
-        try{
+        try {
             const result = await this.$store.dispatch("addNews", this.form);
             window.location.href = '/news';
+        } catch {
+            alert("Ошибка добавления, проверьте введеннные данные.")
         }
-        catch{
-            alert("Ошибка!")
-        }
-    }   
+    }
 }
 </script>

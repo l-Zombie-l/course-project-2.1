@@ -4,27 +4,27 @@
     <h1>Новости</h1>
     <div class="container">
         <div v-if="!token">
-             <table class="table table-secondary table-striped">
-            <thead>
-                <tr>
-                    <th scope="col" width="20%">Название</th>
-                    <th scope="col">Содержимое</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="news in news" :key="news.id">
-                    <td @click="openNews(news.id)">{{news.name}}</td>
-                    <td class='td_info' @click="openNews(news.id)">
-                        <p class="cuttedText">{{news.info}}</p>
-                    </td>                   
-                </tr>
-            </tbody>
-        </table>
+            <table class="table table-secondary table-striped" title="Нажмите чтобы открыть новость.">
+                <thead>
+                    <tr>
+                        <th scope="col" width="20%">Название</th>
+                        <th scope="col">Содержимое</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="news in news" :key="news.id">
+                        <td @click="openNews(news.id)">{{news.name}}</td>
+                        <td class='td_info' @click="openNews(news.id)">
+                            <p class="cuttedText">{{news.info}}</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <div v-else>
             <a href="/add_news" class="button btn btn-light" type="button">Добавить новость</a><br><br>
 
-            <table class="table table-secondary table-striped">
+            <table class="table table-secondary table-striped" title="Нажмите чтобы открыть новость.">
                 <thead>
                     <tr>
                         <th scope="col" width="20%">Название</th>
@@ -43,7 +43,7 @@
                     </tr>
                 </tbody>
             </table>
-        </div>       
+        </div>
     </div>
 </div>
 </template>

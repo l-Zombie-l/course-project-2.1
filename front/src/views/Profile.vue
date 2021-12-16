@@ -11,7 +11,7 @@
                 <input readonly type="email" class="form-control col-xs-10" id="inputEmail" placeholder="Введите email" v-model="form.email"><br>
 
                 <label for="inputPassword" class="col-xs-2 control-label">Пароль: </label>
-                <input type="text" class="form-control col-xs-10" id="inputPassword" placeholder="Введите пароль" title="Введите не менее шести символов и не более двадцати символов." v-model="form.password">
+                <input type="text" maxlength="20" minlength="6" class="form-control col-xs-10" id="inputPassword" placeholder="Введите пароль" title="Введите не менее шести символов и не более двадцати символов." v-model="form.password">
             </div><br>
         </form>
         <form class="form-horizontal" @submit.prevent="">
@@ -95,10 +95,16 @@ export default class Profile extends Vue {
     }
 
     async save() {
-        const result = await this.$store.dispatch("update", this.form);
-        localStorage.setItem('fio', result.user.fio);
-        localStorage.setItem('password', result.user.password);
-        console.log(result);
+        try {
+            const result = await this.$store.dispatch("update", this.form);
+            localStorage.setItem('fio', result.user.fio);
+            localStorage.setItem('password', result.user.password);
+            console.log(result);
+            alert("Вы изменили профиль.")
+
+        } catch {
+            alert("Ошибка сохранения данных, проверьте введенные данные.")
+        }
     }
 
     async destroy() {
@@ -109,13 +115,13 @@ export default class Profile extends Vue {
         localStorage.setItem('fio', "");
         localStorage.setItem('email', "");
         localStorage.setItem('password', "");
-         localStorage.setItem('id', "");
+        localStorage.setItem('id', "");
         window.location.href = '/login';
         console.log(destroy);
     }
 
     async logout() {
-        const result = await this.$store.dispatch("logout");       
+        const result = await this.$store.dispatch("logout");
         window.location.href = '/login';
         localStorage.clear();
         console.log(result);

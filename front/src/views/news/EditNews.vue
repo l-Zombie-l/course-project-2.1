@@ -4,7 +4,7 @@
     <form class="form-horizontal">
         <div class="form-group">
             <label for="inputName" class="col-xs-2 control-label">Название: </label>
-            <input type="text" class="form-control col-xs-10" id="inputName" placeholder="Введите название новости" v-model="form.name"> <br>
+            <input type="text" minlength="6" class="form-control col-xs-10" id="inputName" placeholder="Введите название новости" v-model="form.name" title="Введите не менее шести символов."> <br>
 
             <label for="inputNew" class="col-xs-2 control-label">Содержимое: </label>
             <textarea type="text" class="form-control col-xs-10 news" id="inputNew" placeholder="Введите содержимое новости" v-model="form.info"></textarea>
@@ -78,8 +78,14 @@ export default class Home extends Vue {
     }
 
     async updateNews() {
-        const result = await instance.put('http://localhost:4100/user/update_news/' + this.localId, this.form);
-        window.location.href = '/news';
+
+        try {
+            const result = await instance.put('http://localhost:4100/user/update_news/' + this.localId, this.form);
+            window.location.href = '/news';
+        } catch {
+            alert("Ошибка сохранения, проверьте введенные данные.")
+        }
+
     }
 
     mounted() {
