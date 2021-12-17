@@ -1,6 +1,6 @@
 <template>
 <div class="register">
-    <h1>Регистрация</h1>  
+    <h1>Регистрация</h1>
     <form class="form-horizontal">
         <div class="form-group">
             <label for="inputText" class="col-xs-2 control-label text-start">ФИО: </label>
@@ -67,17 +67,16 @@ export default class Home extends Vue {
         email: "ich_liebe_dich_nicht@vk.com",
         password: "987456321"
     }
-    
+
     async register() {
-        try{
-const result = await axios.post('http://localhost:4100/register', this.form);
-        window.location.href = '/home';
-        console.log(result);
-        }
-        catch{
+        try {
+            const result = await axios.post('http://localhost:4100/register', this.form);
+            window.location.href = '/login';
+            console.log(result);
+        } catch {
             alert("Ошибка при регистрации, проверьте введенные данные.")
         }
-        
+
     }
 
 }

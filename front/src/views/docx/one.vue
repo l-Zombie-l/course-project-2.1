@@ -1,51 +1,53 @@
 <template>
-<div class="one div">
-    <div class="container"><br>
-        <h2><b>ОТЧЕТ</b><br></h2>
-        <p><b>о проделанной работе сотрудника</b></p>
-        <p align="left">Сотрудник: {{localFIO}}</p>
-        <p align="left">Дата: {{date}}, {{time}}</p>
+<div>
+    <div class="one div" >
+        <div id="container"><br>
+            <h2><b>ОТЧЕТ</b><br></h2>
+            <p><b>о проделанной работе сотрудника</b></p>
+            <p align="left">Сотрудник: {{localFIO}}</p>
+            <p align="left">Дата: {{date}}, {{time}}</p>
 
-        <table class="table table-bordered table_word">
-            <thead>
-                <tr>
-                    <th scope="col" width="5%"><b>№</b></th>
-                    <th scope="col" width="30%"><b>Название задачи</b></th>
-                    <th scope="col"><b>Содержимое</b></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="tasks in tasks" :key="tasks.id">
-                    <td>{{tasks.id}}</td>
-                    <td>{{tasks.name}}</td>
-                    <td>{{tasks.info}}</td>
-                </tr>
-            </tbody>
-        </table>
+            <table class="table table-bordered table_word">
+                <thead>
+                    <tr>
+                        <th scope="col" width="5%"><b>№</b></th>
+                        <th scope="col" width="30%"><b>Название задачи</b></th>
+                        <th scope="col"><b>Содержимое</b></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="tasks in tasks" :key="tasks.id">
+                        <td>{{tasks.id}}</td>
+                        <td>{{tasks.name}}</td>
+                        <td>{{tasks.info}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 </template>
 
 <style lang="scss">
 p {
-    font-family: "Times New Roman", Times, serif;
-    font-size: 18px;
+    font-family: "PTSans";
+    font-size: 14px;
 }
 
 h2 {
     font-family: "Times New Roman", Times, serif;
-    font-size: 24px;
+    font-size: 18px;
 }
 
 .table_word {
     font-family: "Times New Roman", Times, serif;
-    font-size: 18px;
+    font-size: 14px;
 }
 
 .div {
     background-color: white;
     color: #333;
-    padding: 5px;
+    padding: 20px;
 }
 </style>
 
@@ -77,9 +79,9 @@ export default class Home extends Vue {
         this.tasks = result.data;
         console.log(this.tasks)
     }
-    
+
     mounted() {
         this.getTasks()
-    }
+    }   
 }
 </script>

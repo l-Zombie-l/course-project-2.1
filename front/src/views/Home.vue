@@ -58,11 +58,11 @@
                     </tr>
                 </tbody>
             </table>
+            <div id="html">
+                <router-view />
+            </div><br>
+            <button class="router-link button btn btn-light" @click="exportPDF()">Сохранить в PDF</button>
         </div>
-        <div id="element-to-print">
-            <router-view />
-        </div>
-        <button @click="generatePDF()">Сохранить в PDF</button>
     </div>
 </div>
 </template>
@@ -101,19 +101,25 @@ import {
 import axios from "axios"
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import html2Pdf from 'js-html2pdf'
+import html2canvas from 'html2canvas'
 
 @Component({
     components: {},
 })
+
 export default class Home extends Vue {
     token = "";
     mounted() {
         this.token = localStorage.token;
     }
-    generatePDF() {
-        const element = document.getElementById('invoice');
-        html2Pdf().from(element).save();
+
+    exportPDF() {
+        let printContents = document.getElementById('html');
+        html2canvas(printContents).then(async function (canvas) {
+            let win = window.open();
+            await win.document.write("<br><img src='" + canvas.toDataURL() + "'/>");
+            win.print();
+        });
     }
 }
 </script>
