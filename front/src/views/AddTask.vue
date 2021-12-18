@@ -74,7 +74,7 @@ export default class Home extends Vue {
     async addTask() {
         try {
             const result = await axios.post('http://localhost:4100/add_task', this.form)
-            window.location.href = '/home';
+            window.location.href = '/home/one';
             console.log(result.data);
         } catch {
             alert("Ошибка сохранения, проверьте введенные данные")

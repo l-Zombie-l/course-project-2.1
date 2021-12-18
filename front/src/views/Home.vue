@@ -39,7 +39,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Отчет о проделанной работе сотрудника</td>
+                        <td>Отчет о работе сотрудника</td>
                         <td>
                             <router-link class="router-link button btn btn-light" type="button" to="/home/one">Выбрать</router-link>
                         </td>
@@ -61,7 +61,7 @@
             <div id="html">
                 <router-view />
             </div><br>
-            <!-- <button class="router-link button btn btn-light" @click="exportPDF()">Сохранить в PDF</button><br> -->
+            <button class="router-link button btn btn-light" @click="exportPDF()">Распечатать отчет</button><br>
         </div>
     </div>
 </div>
@@ -113,13 +113,13 @@ export default class Home extends Vue {
         this.token = localStorage.token;
     }
 
-    // exportPDF() {
-    //     let printContents = document.getElementById('html');
-    //     html2canvas(printContents).then(async function (canvas) {
-    //         let win = window.open();
-    //         await win.document.write("<br><img src='" + canvas.toDataURL() + "'/>");
-    //         win.print();
-    //     });
-    // }
+    exportPDF() {
+        let printContents = document.getElementById('html');
+        html2canvas(printContents).then(async function (canvas) {
+            let win = window.open();
+            await win.document.write("<br><img src='" + canvas.toDataURL() + "'/>");
+            win.print();
+        });
+    }
 }
 </script>

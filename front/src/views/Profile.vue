@@ -11,7 +11,7 @@
                 <input readonly type="email" class="form-control col-xs-10" id="inputEmail" placeholder="Введите email" v-model="form.email"><br>
 
                 <label for="inputPassword" class="col-xs-2 control-label">Пароль: </label>
-                <input type="text" maxlength="20" minlength="6" class="form-control col-xs-10" id="inputPassword" placeholder="Введите пароль" title="Введите не менее шести символов и не более двадцати символов." v-model="form.password">
+                <input type="password" maxlength="20" minlength="6" class="form-control col-xs-10" id="inputPassword" placeholder="Введите пароль" title="Введите не менее шести символов и не более двадцати символов." v-model="form.password">
             </div><br>
         </form>
         <form class="form-horizontal" @submit.prevent="">

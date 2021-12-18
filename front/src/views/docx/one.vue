@@ -3,7 +3,7 @@
     <div class="one div">
         <div id="container"><br>
             <h2><b>ОТЧЕТ</b><br></h2>
-            <p><b>о проделанной работе сотрудника</b></p>
+            <p><b>о работе сотрудника</b></p>
             <p align="left">Сотрудник: {{localFIO}}</p>
             <p align="left">Дата: {{date}}, {{time}}</p>
 

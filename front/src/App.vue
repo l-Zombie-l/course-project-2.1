@@ -13,7 +13,7 @@
     <div v-else>
         <div id="nav">
             <ul>
-                <li><a href="/home" class="text">Главная</a></li>
+                <li><a href="/home/one" class="text">Главная</a></li>
                 <li><a href="/news" class="text">Новости</a></li>
                 <li><a href="/add_task" class="text">Добавить задачу</a></li>
                 <li style="float:right"><a href="/profile" class="text">Профиль</a></li>

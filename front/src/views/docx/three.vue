@@ -1,7 +1,10 @@
 <template>
 <div class="one div">
     <div class="container">
+        <h2><b>ОТЧЕТ</b><br></h2>
         <h2><b>Поставленные задачи</b></h2>
+        <p align="left">Запросил сотрудник: {{localFIO}}</p>
+        <p align="left">Дата: {{date}}, {{time}}</p>
 
         <table class="table table-bordered table_word">
             <thead>
@@ -19,7 +22,6 @@
                 </tr>
             </tbody>
         </table>
-        <p align="left">Дата: {{date}}, {{time}}</p>
 
     </div>
 </div>
@@ -65,6 +67,8 @@ export default class Home extends Vue {
     tasks: any[] = [];
     date = new Date().toLocaleDateString();
     time = new Date().toLocaleTimeString();
+    localFIO = localStorage.getItem('fio');
+
 
     async getUserSort() {
         const result = await axios.get('http://localhost:4100/tasks')
