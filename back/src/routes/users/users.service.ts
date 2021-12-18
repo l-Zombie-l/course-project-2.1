@@ -1,7 +1,7 @@
 import User from "@/db/models/User.model";
 import { IAddTasksDTO, INewsCreateDTO, IUserCreateDTO, IUserLoginDTO, IUserUpdateDTO } from "./dto";
 import moment from "moment";
-import { Op } from "sequelize";
+import { NUMBER, Op } from "sequelize";
 import { genSaltSync, hashSync } from "bcrypt";
 import Token from "@/db/models/Token.model";
 import { compareSync } from "bcrypt";
@@ -40,6 +40,26 @@ export class UsersService {
     return {
       data:
         foundTasks
+    };
+  }
+
+  async getUserSort() {
+    const foundTasks = await User.findAll({
+      include: [] 
+    });
+
+    var arr: User[]= foundTasks;
+
+    var compareData = function (sort1: User, sort2: User) {
+      var sort1Data = new Number(sort1.taskCount);
+      var sort2Data = new Number(sort2.taskCount);
+      return sort1Data < sort2Data ? 1 : -1;
+    }
+    var sortedArray = arr.sort(compareData);
+
+    return {
+      data:
+        sortedArray
     };
   }
 
@@ -145,7 +165,7 @@ export class UsersService {
         message: "Пользователь не найден.",
       };
     }
-   
+
     await News.destroy({ where: { userId } });
     await Token.destroy({ where: { userId } });
     await User.destroy({ where: { id: userId } });
@@ -178,10 +198,10 @@ export class UsersService {
 
   async read(id: number) {
     const foundUser = await User.findByPk(id);
-    
+
     return foundUser;
   }
-  
+
   async tasksList(id: number) {
     const foundUser = await User.findByPk(id);
     const foundTasks = await Tasks.findAll({ where: { userId: foundUser.id } })
@@ -213,7 +233,7 @@ export class UsersService {
       message: "Успешное редактирование.",
       user: foundNews
     }
-  } 
+  }
 
   async addNews(userId: number, news: INewsCreateDTO) {
     const NEW_LIMIT = 3;
@@ -250,7 +270,7 @@ export class UsersService {
     };
   }
 
-  async addTask(task: IAddTasksDTO) {
+  async addTask(userTask: IUserUpdateDTO, task: IAddTasksDTO) {
     const NEW_LIMIT = 3;
     const NEW_DELAY = 60;
     const where: any = {};
@@ -266,7 +286,7 @@ export class UsersService {
     if (newCount >= NEW_LIMIT) {
       return {
         success: false,
-        message: `За ${NEW_DELAY} секунд отправлено ${newCount} новостей. Лимит (${NEW_LIMIT}!)`,
+        message: `За ${NEW_DELAY} секунд отправлено ${newCount} задач. Лимит (${NEW_LIMIT}!)`,
       };
     }
 
@@ -276,6 +296,12 @@ export class UsersService {
     result.info = task.info
 
     await result.save();
+
+    const foundUser = await User.findOne({ where: { id: result.userId } })
+    if (foundUser) {
+      foundUser.taskCount = foundUser.taskCount+1;
+      await foundUser.save()
+    }
 
     return {
       success: true,

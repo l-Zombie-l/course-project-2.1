@@ -50,6 +50,8 @@ export class IUserUpdateDTO {
     @IsDefined()
     @Length(6, 20, {})
     password: string;
+
+    taskCount: number;
 }
 
 export class IGetTasksDTO {

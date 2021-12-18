@@ -19,6 +19,11 @@ export const listTasks = async (ctx: IKoaContext) => {
   ctx.body = { ...newsList };
 };
 
+export const sortUser = async (ctx: IKoaContext) => {
+  const newsList = await usersFactory().getUserSort();
+  ctx.body = { ...newsList };
+};
+
 export const register = async (ctx: IKoaContext) => {
   const body: IUserCreateDTO = ctx.request.body;
 
@@ -57,13 +62,14 @@ export const createNews = async (ctx: IKoaContext) => {
 
 export const addTask = async (ctx: IKoaContext) => {
   const body: IAddTasksDTO = ctx.request.body;
+  const userTask: IUserUpdateDTO = ctx.request.body;
 
   await transformAndValidate(IAddTasksDTO, body).catch(
     (err: ServerValidationError) => {
       throw new ServerValidationError(err.errorCode, err.message)
     }
   );
-  const result = await usersFactory().addTask(body);
+  const result = await usersFactory().addTask(userTask, body);
   ctx.body = result;
 };
 

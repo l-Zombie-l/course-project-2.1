@@ -22,6 +22,12 @@ const routes: Array<RouteConfig> = [
         component: () =>
           import('../views/docx/two.vue'),
       },
+      {
+        path: '/home/three',
+        name: "Three",
+        component: () =>
+          import('../views/docx/three.vue'),
+      },
     ],
   },
 

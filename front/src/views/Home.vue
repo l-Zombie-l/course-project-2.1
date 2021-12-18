@@ -1,7 +1,7 @@
 <template>
 <div class="app">
     <div class="container">
-        <h4>Система формирования отчетной документации на базе шаблонных форм</h4>
+        <h4 class="padding">Система формирования отчетной документации на базе шаблонных форм</h4>
         <div v-if="!token">
             <table class="table table-secondary table-striped">
                 <thead>
@@ -45,15 +45,15 @@
                         </td>
                     </tr>
                     <tr>
-                        <td></td>
+                        <td>Рейтинг сотрудников по задачам</td>
                         <td>
-                            <router-link class="router-link button btn btn-light" type="button" to="/home/one">Выбрать</router-link>
+                            <router-link class="router-link button btn btn-light" type="button" to="/home/two">Выбрать</router-link>
                         </td>
                     </tr>
                     <tr>
-                        <td></td>
+                        <td>Поставленные задачи</td>
                         <td>
-                            <router-link class="router-link button btn btn-light" type="button" to="/home/one">Выбрать</router-link>
+                            <router-link class="router-link button btn btn-light" type="button" to="/home/three">Выбрать</router-link>
                         </td>
                     </tr>
                 </tbody>
@@ -61,7 +61,7 @@
             <div id="html">
                 <router-view />
             </div><br>
-            <button class="router-link button btn btn-light" @click="exportPDF()">Сохранить в PDF</button>
+            <!-- <button class="router-link button btn btn-light" @click="exportPDF()">Сохранить в PDF</button><br> -->
         </div>
     </div>
 </div>
@@ -87,8 +87,8 @@
     color: #333;
 }
 
-h4 {
-    padding: 5px;
+.padding {
+    padding: 15px;
 }
 </style>
 
@@ -113,13 +113,13 @@ export default class Home extends Vue {
         this.token = localStorage.token;
     }
 
-    exportPDF() {
-        let printContents = document.getElementById('html');
-        html2canvas(printContents).then(async function (canvas) {
-            let win = window.open();
-            await win.document.write("<br><img src='" + canvas.toDataURL() + "'/>");
-            win.print();
-        });
-    }
+    // exportPDF() {
+    //     let printContents = document.getElementById('html');
+    //     html2canvas(printContents).then(async function (canvas) {
+    //         let win = window.open();
+    //         await win.document.write("<br><img src='" + canvas.toDataURL() + "'/>");
+    //         win.print();
+    //     });
+    // }
 }
 </script>

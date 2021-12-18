@@ -1,7 +1,7 @@
 import { Context, DefaultState } from "koa";
 import Router from "koa-router";
 import userRoutes from "@/routes/users/index";
-import { list, login, register, listNews, me, listTasks, addTask } from "./users/users.controller";
+import { list, login, register, listNews, me, listTasks, addTask, sortUser } from "./users/users.controller";
 import checkNews from "@/middlewares/checkNews";
 import checkAuth from "@/middlewares/checkAuth";
 
@@ -27,6 +27,7 @@ router.post("/login", login.bind(this));
 router.post("/add_task", addTask.bind(this));
 router.get("/news", checkNews, listNews);
 router.get("/tasks", checkNews, listTasks);
+router.get("/user/sort", checkNews, sortUser);
 router.get("/users", checkNews, list);
 router.get("/me", checkAuth, me.bind(this));
 

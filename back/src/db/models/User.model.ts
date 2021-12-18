@@ -31,6 +31,9 @@ class User extends Model {
   @Column(DataType.BOOLEAN)
   isAdmin: boolean;
 
+  @Column(DataType.NUMBER)
+  taskCount: number;
+
   @HasMany(() => New, { foreignKey: "userId", onDelete: "RESTRICT" })
   news: New[];
 }

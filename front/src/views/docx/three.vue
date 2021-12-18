@@ -1,21 +1,21 @@
 <template>
 <div class="one div">
     <div class="container">
-        <h2><b>Рейтинг сотрудников по задачам</b></h2>
+        <h2><b>Поставленные задачи</b></h2>
 
         <table class="table table-bordered table_word">
             <thead>
                 <tr>
-                    <th scope="col" width="10%"><b>Код</b></th>
-                    <th scope="col" width="30%"><b>ФИО</b></th>
-                    <th scope="col"><b>Количество задач</b></th>
+                    <th scope="col" width="5%"><b>№</b></th>
+                    <th scope="col" width="30%"><b>Название задачи</b></th>
+                    <th scope="col"><b>Содержимое</b></th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="users in users" :key="users.id">
-                    <td>{{users.id}}</td>
-                    <td>{{users.fio}}</td>
-                    <td>{{users.taskCount}}</td>
+                <tr v-for="tasks in tasks" :key="tasks.id">
+                    <td>{{tasks.id}}</td>
+                    <td>{{tasks.name}}</td>
+                    <td>{{tasks.info}}</td>
                 </tr>
             </tbody>
         </table>
@@ -62,14 +62,14 @@ import 'bootstrap/dist/css/bootstrap.min.css'
     components: {},
 })
 export default class Home extends Vue {
-    users: any[] = [];
+    tasks: any[] = [];
     date = new Date().toLocaleDateString();
     time = new Date().toLocaleTimeString();
 
     async getUserSort() {
-        const result = await axios.get('http://localhost:4100/user/sort')
-        this.users = result.data.data;
-        console.log(this.users)
+        const result = await axios.get('http://localhost:4100/tasks')
+        this.tasks = result.data.data;
+        console.log(this.tasks)
     }
 
     mounted() {
