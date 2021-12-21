@@ -1,6 +1,5 @@
 <template>
 <div class="news">
-    <!-- <img alt="Vue logo" src="../assets/logo.png" /> -->
     <h1>Новости</h1>
     <div class="container">
         <div v-if="!token">
@@ -53,26 +52,21 @@
     text-align: left;
     padding: 0px 25% 0px 25%;
 }
-
 table {
     table-layout: fixed;
     width: 100%
 }
-
 td {
     word-wrap: break-word;
 }
-
 .td_info {
     text-align: left;
 }
-
 .buttons {
     display: flex;
     padding: 0px 25% 0px 25%;
     justify-content: center;
 }
-
 .button {
     display: inline-block;
     width: 100%;
@@ -85,7 +79,6 @@ td {
     text-align: center;
     color: #333;
 }
-
 .cuttedText {
     display: block;
     width: 100%;

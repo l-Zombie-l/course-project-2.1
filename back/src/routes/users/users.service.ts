@@ -114,7 +114,6 @@ export class UsersService {
         algorithm: "HS256",
       });
 
-    console.log("access_token                                 " + access_token)
     return access_token
   }
 

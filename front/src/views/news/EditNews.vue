@@ -67,7 +67,6 @@ instance.defaults.headers.common["Authorization"] = `Bearer ${localStorage.token
     components: {},
 })
 export default class Home extends Vue {
-    name = "";
     localName = localStorage.getItem('name');
     localInfo = localStorage.getItem('info');
     localId = localStorage.getItem('idNews');
@@ -86,10 +85,6 @@ export default class Home extends Vue {
             alert("Ошибка сохранения, проверьте введенные данные.")
         }
 
-    }
-
-    mounted() {
-        this.name = localStorage.name;
     }
 
     created() {
