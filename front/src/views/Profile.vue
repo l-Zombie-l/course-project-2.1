@@ -111,11 +111,7 @@ export default class Profile extends Vue {
         const result = await this.$store.dispatch("me");
         alert(`Вы удалили свой аккаунт ${result.fio}.`);
         const destroy = await this.$store.dispatch("destroy", result.id);
-        localStorage.setItem('token', "");
-        localStorage.setItem('fio', "");
-        localStorage.setItem('email', "");
-        localStorage.setItem('password', "");
-        localStorage.setItem('id', "");
+        localStorage.clear();
         window.location.href = '/login';
         console.log(destroy);
     }

@@ -72,8 +72,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 })
 export default class Login extends Vue {
     form = {
-        email: "ich_liebe_dich_nicht@vk.com",
-        password: "987456321"
+        email: "",
+        password: ""
     }
     token = "";
     user = [];

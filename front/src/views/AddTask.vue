@@ -66,9 +66,9 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 })
 export default class Home extends Vue {
     form = {
-        userId: "1",
-        name: "test",
-        info: "test"
+        userId: "",
+        name: "",
+        info: ""
     }
 
     async addTask() {

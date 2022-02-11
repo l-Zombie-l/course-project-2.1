@@ -63,9 +63,9 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 })
 export default class Home extends Vue {
     form = {
-        fio: "Бунина Алёна Владимировна",
-        email: "ich_liebe_dich_nicht@vk.com",
-        password: "987456321"
+        fio: "",
+        email: "",
+        password: ""
     }
 
     async register() {
